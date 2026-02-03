@@ -1,10 +1,14 @@
 package wf.fav.apps.fc;
 
-import wf.fav.apps.fc.gui.FavCommanderMainWindow;
+import wf.fav.apps.fc.fs.FavCommanderFile;
+import wf.fav.apps.fc.fs.local.LocalFavCommanderFileSystem;
+import wf.fav.apps.fc.gui.FavCommanderTable;
+import wf.fav.apps.fc.sort.FavCommanderFileComparator;
 
 import javax.swing.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FavCommander {
     static void main() {
@@ -12,19 +16,17 @@ public class FavCommander {
         f.setVisible(true);
         f.setLocation(100, 100);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        final FavCommanderMainWindow m = new FavCommanderMainWindow();
+        new File(System.getProperty("user.dir"));
+//        final FavCommanderMainWindow m = new FavCommanderMainWindow();
+        final FavCommanderTable m = new FavCommanderTable();
         f.getContentPane().add(m);
-//        f.grabFocus();
+        m.grabFocus();
         f.pack();
-        m.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(final KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                    System.out.println("hello world");
-//                    m.shutDown();
-                }
-            }
-        });
-        System.out.println("hello world");
+
+        List<? extends FavCommanderFile> fileList = new ArrayList<>(
+                LocalFavCommanderFileSystem.getLocalFavCommanderFileSystemInstance().listRoots().getFirst().listDirectoryFileList());
+        fileList.sort(FavCommanderFileComparator.NAME);
+        m.setFileList(fileList);
     }
+
 }
