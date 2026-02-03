@@ -4,11 +4,11 @@ import wf.fav.apps.fc.fs.FavCommanderFile;
 
 import java.util.Comparator;
 
-public class FavCommanderFileNameComparator implements Comparator<FavCommanderFile> {
+public class FavCommanderIsDirectoryComparator implements Comparator<FavCommanderFile> {
 
     @Override
     public int compare(FavCommanderFile a, FavCommanderFile b) {
-        return a.getName().compareToIgnoreCase(b.getName());
+        return -Boolean.compare(a.isDirectory(), b.isDirectory());
     }
 
 }

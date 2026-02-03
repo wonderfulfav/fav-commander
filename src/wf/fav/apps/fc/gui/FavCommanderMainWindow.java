@@ -1,4 +1,6 @@
 package wf.fav.apps.fc.gui;
 
-public class FavCommanderMainWindow {
+import javax.swing.*;
+
+public class FavCommanderMainWindow extends JComponent {
 }
