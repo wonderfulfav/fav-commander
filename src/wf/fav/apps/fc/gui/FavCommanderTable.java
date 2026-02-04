@@ -10,37 +10,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static wf.fav.apps.fc.config.FavCommanderVisualConfigurationDarkTheme.*;
+import static wf.fav.apps.fc.config.FavCommanderVisualConfigurationFontSize.*;
+
 public class FavCommanderTable extends JComponent {
-
-    private static final Color BACKGROUND = Color.BLACK;
-    private static final Color FOREGROUND = new Color(0, 127, 0);
-    private static final Color CURSOR_BACKGROUND = FOREGROUND;
-    private static final Color CURSOR_FOREGROUND = BACKGROUND;
-    private static final Color HIGHLIGHTED = Color.GREEN;
-
-    private static final long MAGNITUDE = 1024;
-    private static final long KB = MAGNITUDE;
-    private static final long MB = KB * MAGNITUDE;
-    private static final long GB = MB * MAGNITUDE;
-    private static final long TB = GB * MAGNITUDE;
-    private static final long PB = TB * MAGNITUDE;
-
-    private static final long KB10 = 10 * KB;
-    private static final long MB10 = 10 * MB;
-    private static final long GB10 = 10 * GB;
-    private static final long TB10 = 10 * TB;
-
-    private static final String SPACE = " ";
-    private static final String SPACE2 = SPACE + SPACE;
-    private static final String SPACE3 = SPACE2 + SPACE;
-
-    // or make it KiB, MiB, GiB, TiB, PiB?
-    private static final String B = SPACE + "B";
-    private static final String KIB = SPACE + "K";
-    private static final String MIB = SPACE + "M";
-    private static final String GIB = SPACE + "G";
-    private static final String TIB = SPACE + "T";
-    private static final String PIB = SPACE + "P";
 
     private List<? extends FavCommanderFile> fileList;
     private final Set<FavCommanderFile> selectedSet = new HashSet<>();
@@ -95,13 +68,13 @@ public class FavCommanderTable extends JComponent {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(550, 380);
+        return new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT);
     }
 
     @Override
     public void paint(final Graphics g) {
-        int width = getWidth();
-        int height = getHeight();
+        final int width = getWidth();
+        final int height = getHeight();
 
         g.setColor(BACKGROUND);
         g.fillRect(0, 0, width, height);
@@ -111,67 +84,28 @@ public class FavCommanderTable extends JComponent {
         }
 
         g.setColor(CURSOR_BACKGROUND);
-        g.fillRect(0, cursorIndex * 20, width, 20);
+        g.fillRect(0, cursorIndex * LINE_HEIGHT, width, LINE_HEIGHT);
 
         for (int i = 0; i < fileList.size(); i++) {
             g.setColor((i == cursorIndex) ? CURSOR_FOREGROUND : FOREGROUND);
-            drawFile(g, i);
+            paintFile(g, i);
         }
     }
 
-    public void drawFile(final Graphics g, final int i) {
+    public void paintFile(final Graphics g, final int i) {
         final FavCommanderFile f = fileList.get(i);
 
         if (f.isDirectory()) {
-            g.drawString("<DIR>", 250, i * 20 + 12);
+            g.drawString("<DIR>", TAB_OFFSET, i * LINE_HEIGHT + TEXT_OFFSET);
         } else {
-            g.drawString(humanReadableSize(f.getFileSize()), 250, i * 20 + 12);
+            g.drawString(FavCommanderFormatUtil.humanReadableSize(f.getFileSize()), TAB_OFFSET, i * LINE_HEIGHT + TEXT_OFFSET);
         }
 
         if (selectedSet.contains(f)) {
             g.setColor(HIGHLIGHTED);
         }
 
-        g.drawString(f.getName(), 10, i * 20 + 12);
-    }
-
-    public static String humanReadableSize(final long size) {
-        if (size > PB) {
-            return leftPad(size / PB) + PIB;
-        }
-        if (size > TB10) {
-            return leftPad(size / TB) + TIB;
-        }
-
-        if (size > GB10) {
-            return leftPad(size / GB) + GIB;
-        }
-
-        if (size > MB10) {
-            return leftPad(size / MB) + MIB;
-        }
-
-        if (size > KB10) {
-            return leftPad(size / KB) + KIB;
-        }
-
-        return leftPad(size) + B;
-    }
-
-    public static String leftPad(final long size) {
-        if (size < 10) {
-            return SPACE3 + size;
-        }
-
-        if (size < 100) {
-            return SPACE2 + size;
-        }
-
-        if (size < 1000) {
-            return SPACE + size;
-        }
-
-        return Long.toString(size);
+        g.drawString(f.getName(), LEFT_MARGIN, i * LINE_HEIGHT + TEXT_OFFSET);
     }
 
     @Override
