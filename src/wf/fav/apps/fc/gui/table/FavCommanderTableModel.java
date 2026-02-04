@@ -12,6 +12,12 @@ public class FavCommanderTableModel {
     private final Set<FavCommanderFile> selectedSet = new HashSet<>();
     private int cursorIndex;
 
+    private final FavCommanderTableView view;
+
+    public FavCommanderTableModel(final FavCommanderTableView favCommanderTableView) {
+        this.view = favCommanderTableView;
+    }
+
     public int getCursorIndex() {
         return cursorIndex;
     }
@@ -35,27 +41,24 @@ public class FavCommanderTableModel {
     public void setFileList(final List<? extends FavCommanderFile> fileList) {
         this.fileList = fileList;
         selectedSet.clear();
+        view.repaint();
     }
 
-    public boolean cursorUp() {
+    public void cursorUp() {
         if (cursorIndex > 0) {
             cursorIndex--;
-            return true;
+            view.repaint();
         }
-
-        return false;
     }
 
-    public boolean cursorDown() {
+    public void cursorDown() {
         if (fileList != null && cursorIndex < fileList.size() - 1) {
             cursorIndex++;
-            return true;
+            view.repaint();
         }
-
-        return false;
     }
 
-    public boolean markFile() {
+    public void markFile() {
         final FavCommanderFile selectedFile = fileList.get(cursorIndex);
 
         if (selectedSet.contains(selectedFile)) {
@@ -64,7 +67,7 @@ public class FavCommanderTableModel {
             selectedSet.add(selectedFile);
         }
 
-        return cursorDown();
+        cursorDown();
     }
 
 }

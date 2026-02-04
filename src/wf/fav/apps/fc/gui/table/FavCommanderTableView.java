@@ -12,14 +12,13 @@ import java.util.List;
 import static wf.fav.apps.fc.config.FavCommanderVisualConfigurationDarkTheme.*;
 import static wf.fav.apps.fc.config.FavCommanderVisualConfigurationFontSize.*;
 
-public class FavCommanderTable extends JComponent {
+public class FavCommanderTableView extends JComponent {
 
     private final FavCommanderTableModel model;
 
-    public FavCommanderTable() {
-        model = new FavCommanderTableModel();
-        final FavCommanderTableController controller =
-                new FavCommanderTableController(this, model);
+    public FavCommanderTableView() {
+        model = new FavCommanderTableModel(this);
+        final FavCommanderTableController controller = new FavCommanderTableController(model);
 
         addKeyListener(new KeyAdapter() {
             @Override

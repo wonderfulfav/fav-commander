@@ -2,7 +2,7 @@ package wf.fav.apps.fc;
 
 import wf.fav.apps.fc.fs.FavCommanderFile;
 import wf.fav.apps.fc.fs.local.LocalFavCommanderFileSystem;
-import wf.fav.apps.fc.gui.table.FavCommanderTable;
+import wf.fav.apps.fc.gui.table.FavCommanderTableView;
 import wf.fav.apps.fc.sort.FavCommanderFileComparator;
 
 import javax.swing.*;
@@ -18,13 +18,14 @@ public class FavCommander {
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         new File(System.getProperty("user.dir"));
 //        final FavCommanderMainWindow m = new FavCommanderMainWindow();
-        final FavCommanderTable m = new FavCommanderTable();
+        final FavCommanderTableView m = new FavCommanderTableView();
         f.getContentPane().add(m);
         m.grabFocus();
         f.pack();
 
         List<? extends FavCommanderFile> fileList = new ArrayList<>(
-                LocalFavCommanderFileSystem.getLocalFavCommanderFileSystemInstance().listRoots().getFirst().listDirectoryFileList());
+                LocalFavCommanderFileSystem.getLocalFavCommanderFileSystemInstance()
+                        .listRoots().getFirst().listDirectoryFileList());
         fileList.sort(FavCommanderFileComparator.NAME);
         m.setFileList(fileList);
     }
