@@ -19,8 +19,9 @@ public class FavCommander {
         m.grabFocus();
         f.pack();
 
-        m.setFileList(LocalFavCommanderFileSystem.getLocalFavCommanderFileSystemInstance()
-                        .listRoots().getFirst().listDirectoryFileList());
+        m.getModel().setCurrentDirectory(
+                LocalFavCommanderFileSystem.getLocalFavCommanderFileSystemInstance()
+                        .listRoots().getFirst());
     }
 
 }

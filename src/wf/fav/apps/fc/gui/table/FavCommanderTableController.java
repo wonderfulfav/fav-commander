@@ -20,7 +20,9 @@ public class FavCommanderTableController {
 
             case VK_INSERT -> model.markFile();
 
-            case VK_ENTER -> model.openFileOrDirectory();
+            case VK_RIGHT, VK_ENTER -> model.openFileOrDirectory();
+
+            case VK_LEFT, VK_BACK_SPACE -> model.goToParentDirectory();
 
             default -> System.out.println(keyCode);
         }

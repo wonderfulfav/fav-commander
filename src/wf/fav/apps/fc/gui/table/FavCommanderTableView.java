@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.List;
 
 import static wf.fav.apps.fc.config.FavCommanderVisualConfigurationDarkTheme.*;
 import static wf.fav.apps.fc.config.FavCommanderVisualConfigurationFontSize.*;
@@ -75,9 +74,8 @@ public class FavCommanderTableView extends JComponent {
         paint(g);
     }
 
-    public void setFileList(final List<? extends FavCommanderFile> fileList) {
-        model.setFileList(fileList);
-        repaint();
+    public FavCommanderTableModel getModel() {
+        return model;
     }
 
 }

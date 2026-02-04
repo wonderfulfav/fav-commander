@@ -9,6 +9,7 @@ import java.util.Set;
 
 public class FavCommanderTableModel {
 
+    private FavCommanderFile currentDirectory;
     private List<? extends FavCommanderFile> fileList;
     private final Set<FavCommanderFile> selectedSet = new HashSet<>();
     private int cursorIndex;
@@ -39,9 +40,10 @@ public class FavCommanderTableModel {
         return fileList == null || fileList.isEmpty();
     }
 
-    public void setFileList(final List<? extends FavCommanderFile> fileList) {
+    public void setCurrentDirectory(final FavCommanderFile currentDirectory) {
+        this.currentDirectory = currentDirectory;
+        fileList = currentDirectory.listDirectoryFileList();
         fileList.sort(FavCommanderFileComparator.NAME);
-        this.fileList = fileList;
         selectedSet.clear();
         cursorIndex = 0;
         view.repaint();
@@ -77,8 +79,18 @@ public class FavCommanderTableModel {
         final FavCommanderFile file = getFile(getCursorIndex());
 
         if (file.isDirectory()) {
-            setFileList(file.listDirectoryFileList());
+            setCurrentDirectory(file);
         }
+    }
+
+    public void goToParentDirectory() {
+        final FavCommanderFile parentDirectory = currentDirectory.getParentDirectory();
+
+        if (parentDirectory == null) {
+            return;
+        }
+
+        setCurrentDirectory(parentDirectory);
     }
 
 }

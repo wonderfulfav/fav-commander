@@ -28,6 +28,17 @@ public abstract class AbstractLocalFavCommanderFile implements FavCommanderFile 
     }
 
     @Override
+    public FavCommanderFile getParentDirectory() {
+        final File parentDirectory = file.getParentFile();
+
+        if (parentDirectory == null) {
+            return null;
+        }
+
+        return new LocalFavCommanderFile(parentDirectory);
+    }
+
+    @Override
     public List<? extends FavCommanderFile> listDirectoryFileList() {
         if (!isDirectory()) {
             throw new RuntimeException("Not a Directory: " + getName());
