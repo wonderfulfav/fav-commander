@@ -1,6 +1,7 @@
 package wf.fav.apps.fc.gui.table;
 
 import wf.fav.apps.fc.fs.FavCommanderFile;
+import wf.fav.apps.fc.sort.FavCommanderFileComparator;
 
 import java.util.HashSet;
 import java.util.List;
@@ -39,8 +40,10 @@ public class FavCommanderTableModel {
     }
 
     public void setFileList(final List<? extends FavCommanderFile> fileList) {
+        fileList.sort(FavCommanderFileComparator.NAME);
         this.fileList = fileList;
         selectedSet.clear();
+        cursorIndex = 0;
         view.repaint();
     }
 
@@ -68,6 +71,14 @@ public class FavCommanderTableModel {
         }
 
         cursorDown();
+    }
+
+    public void openFileOrDirectory() {
+        final FavCommanderFile file = getFile(getCursorIndex());
+
+        if (file.isDirectory()) {
+            setFileList(file.listDirectoryFileList());
+        }
     }
 
 }

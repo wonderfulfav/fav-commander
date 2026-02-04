@@ -9,7 +9,7 @@ void main() {
     LocalFavCommanderFileSystem localFileSystem = LocalFavCommanderFileSystem.getLocalFavCommanderFileSystemInstance();
     List<? extends FavCommanderFile> listRoots = localFileSystem.listRoots();
     listRoots.forEach(f -> System.out.println(f.getName()));
-    List<? extends FavCommanderFile> fileList = new ArrayList<>(listRoots.getFirst().listDirectoryFileList());
+    List<? extends FavCommanderFile> fileList = listRoots.getFirst().listDirectoryFileList();
     fileList.sort(FavCommanderFileComparator.NAME);
     fileList.forEach(f -> System.out.println(f.getName()));
 }

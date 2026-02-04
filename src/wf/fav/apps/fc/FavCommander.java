@@ -1,14 +1,10 @@
 package wf.fav.apps.fc;
 
-import wf.fav.apps.fc.fs.FavCommanderFile;
 import wf.fav.apps.fc.fs.local.LocalFavCommanderFileSystem;
 import wf.fav.apps.fc.gui.table.FavCommanderTableView;
-import wf.fav.apps.fc.sort.FavCommanderFileComparator;
 
 import javax.swing.*;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 public class FavCommander {
     static void main() {
@@ -23,11 +19,8 @@ public class FavCommander {
         m.grabFocus();
         f.pack();
 
-        List<? extends FavCommanderFile> fileList = new ArrayList<>(
-                LocalFavCommanderFileSystem.getLocalFavCommanderFileSystemInstance()
+        m.setFileList(LocalFavCommanderFileSystem.getLocalFavCommanderFileSystemInstance()
                         .listRoots().getFirst().listDirectoryFileList());
-        fileList.sort(FavCommanderFileComparator.NAME);
-        m.setFileList(fileList);
     }
 
 }
