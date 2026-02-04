@@ -2,7 +2,7 @@ package wf.fav.apps.fc;
 
 import wf.fav.apps.fc.fs.FavCommanderFile;
 import wf.fav.apps.fc.fs.local.LocalFavCommanderFileSystem;
-import wf.fav.apps.fc.gui.FavCommanderTable;
+import wf.fav.apps.fc.gui.table.FavCommanderTable;
 import wf.fav.apps.fc.sort.FavCommanderFileComparator;
 
 import javax.swing.*;
