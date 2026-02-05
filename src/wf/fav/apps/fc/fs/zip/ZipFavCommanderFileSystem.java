@@ -27,10 +27,10 @@ public class ZipFavCommanderFileSystem implements FavCommanderFileSystem {
                     final ZipFavCommanderDirectoryFile directory = new ZipFavCommanderDirectoryFile(name);
                     directoryMap.put(name, directory);
                 } else {
-                    final int lastSlash = name.lastIndexOf('/') + 1;
+                    final int lastSlash = name.lastIndexOf('/');
 
                     // find or create the parent directory
-                    final String directoryName = name.substring(0, lastSlash);
+                    final String directoryName = name.substring(0, lastSlash + 1);
 
                     if (!directoryMap.containsKey(directoryName)) {
                         directoryMap.put(directoryName, new ZipFavCommanderDirectoryFile(directoryName));
@@ -39,7 +39,7 @@ public class ZipFavCommanderFileSystem implements FavCommanderFileSystem {
                     final ZipFavCommanderDirectoryFile directory = directoryMap.get(directoryName);
 
                     // create the file
-                    final String fileName = (lastSlash == 0) ? name : name.substring(lastSlash + 1);
+                    final String fileName = (lastSlash < 0) ? name : name.substring(lastSlash + 1);
                     final ZipFavCommanderFile file = new ZipFavCommanderFile(fileName, entry);
 
                     // add the file to the directory
