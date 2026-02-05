@@ -1,6 +1,7 @@
 package wf.fav.apps.fc.gui.table;
 
 import wf.fav.apps.fc.fs.FavCommanderFile;
+import wf.fav.apps.fc.fs.zip.ZipFavCommanderFileSystem;
 import wf.fav.apps.fc.sort.FavCommanderFileComparator;
 
 import java.util.HashSet;
@@ -80,6 +81,8 @@ public class FavCommanderTableModel {
 
         if (file.isDirectory()) {
             setCurrentDirectory(file);
+        } else if (file.getName().endsWith(".zip")) {
+            ZipFavCommanderFileSystem.openZipFile(file);
         }
     }
 
