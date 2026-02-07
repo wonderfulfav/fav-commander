@@ -15,6 +15,8 @@ public class ZipFavCommanderFileSystem implements FavCommanderFileSystem {
 
     public static void main(String[] args) {
         final HashMap<String, ZipFavCommanderDirectoryFile> directoryMap = new HashMap<>();
+        final ZipFavCommanderDirectoryFile rootDirectory = new ZipFavCommanderDirectoryFile("", null);
+        directoryMap.put("", rootDirectory);
 
         try (final ZipFile zipFile = new ZipFile("/test.zip")) {
             final Enumeration<? extends ZipEntry> entries = zipFile.entries();
@@ -23,28 +25,31 @@ public class ZipFavCommanderFileSystem implements FavCommanderFileSystem {
                 final ZipEntry entry = entries.nextElement();
                 final String name = entry.getName();
 
-                if (entry.isDirectory()) {
-                    final ZipFavCommanderDirectoryFile directory = new ZipFavCommanderDirectoryFile(name);
-                    directoryMap.put(name, directory);
+                final int lastSlash = name.lastIndexOf('/');
+
+                // find or create the parent directory
+                final String directoryName = name.substring(0, lastSlash + 1);
+                final ZipFavCommanderDirectoryFile directory;
+
+                if (directoryMap.containsKey(directoryName)) {
+                    directory = directoryMap.get(directoryName);
                 } else {
-                    final int lastSlash = name.lastIndexOf('/');
-
-                    // find or create the parent directory
-                    final String directoryName = name.substring(0, lastSlash + 1);
-
-                    if (!directoryMap.containsKey(directoryName)) {
-                        directoryMap.put(directoryName, new ZipFavCommanderDirectoryFile(directoryName));
-                    }
-
-                    final ZipFavCommanderDirectoryFile directory = directoryMap.get(directoryName);
-
-                    // create the file
-                    final String fileName = (lastSlash < 0) ? name : name.substring(lastSlash + 1);
-                    final ZipFavCommanderFile file = new ZipFavCommanderFile(fileName, entry);
-
-                    // add the file to the directory
-                    directory.addZipFile(file);
+                    ZipFavCommanderDirectoryFile currentDirectory = rootDirectory;
+                    new ZipFavCommanderDirectoryFile(directoryName);
+                    directoryMap.put(directoryName, directory);
+                    directory = currentDirectory;
                 }
+
+                if (entry.isDirectory()) {
+                    continue;
+                }
+
+                // create the file
+                final String fileName = (lastSlash < 0) ? name : name.substring(lastSlash + 1);
+                final ZipFavCommanderFile file = new ZipFavCommanderFile(fileName, entry);
+
+                // add the file to the directory
+                directory.addZipFile(file);
             }
         } catch (final IOException e) {
             throw new RuntimeException(e);

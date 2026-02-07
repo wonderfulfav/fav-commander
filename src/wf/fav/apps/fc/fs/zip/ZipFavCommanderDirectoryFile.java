@@ -8,31 +8,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ZipFavCommanderDirectoryFile implements FavCommanderFile {
+public class ZipFavCommanderDirectoryFile extends AbstractZipFavCommanderFile {
 
-    private final String name;
-    private final FavCommanderFile parentDirectory;
     private final List<ZipFavCommanderFile> fileList = new ArrayList<>();
     private final Map<String, ZipFavCommanderDirectoryFile> directoryMap = new HashMap<>();
 
     public ZipFavCommanderDirectoryFile(final String name, final FavCommanderFile parentDirectory) {
-        this.name = name;
-        this.parentDirectory = parentDirectory;
-    }
-
-    @Override
-    public String getName() {
-        return name;
+        super(name, parentDirectory);
     }
 
     @Override
     public boolean isDirectory() {
         return true;
-    }
-
-    @Override
-    public FavCommanderFile getParentDirectory() {
-        return parentDirectory;
     }
 
     @Override
@@ -47,7 +34,7 @@ public class ZipFavCommanderDirectoryFile implements FavCommanderFile {
 
     @Override
     public long getFileSize() {
-        throw new RuntimeException("Not a ZIP direcotry: " + getName());
+        throw new RuntimeException("This is a ZIP direcotry: " + getName());
     }
 
     public void addZipFile(ZipFavCommanderFile file) {

@@ -6,29 +6,18 @@ import wf.fav.apps.fc.fs.FavCommanderFileSystem;
 import java.util.List;
 import java.util.zip.ZipEntry;
 
-public class ZipFavCommanderFile implements FavCommanderFile {
+public class ZipFavCommanderFile extends AbstractZipFavCommanderFile {
 
-    final String name;
     final ZipEntry zipEntry;
 
-    public ZipFavCommanderFile(final String name, final ZipEntry zipEntry) {
-        this.name = name;
+    public ZipFavCommanderFile(final String name, final FavCommanderFile parentDirectory, final ZipEntry zipEntry) {
+        super(name, parentDirectory);
         this.zipEntry = zipEntry;
-    }
-
-    @Override
-    public String getName() {
-        return name;
     }
 
     @Override
     public boolean isDirectory() {
         return false;
-    }
-
-    @Override
-    public FavCommanderFile getParentDirectory() {
-        throw new RuntimeException();
     }
 
     @Override
