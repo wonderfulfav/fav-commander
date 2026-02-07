@@ -11,9 +11,8 @@ import java.util.Map;
 public class ZipFavCommanderDirectoryFile extends AbstractZipFavCommanderFile {
 
     private final List<ZipFavCommanderFile> fileList = new ArrayList<>();
-    private final Map<String, ZipFavCommanderDirectoryFile> directoryMap = new HashMap<>();
 
-    public ZipFavCommanderDirectoryFile(final String name, final FavCommanderFile parentDirectory) {
+    public ZipFavCommanderDirectoryFile(final String name, final ZipFavCommanderDirectoryFile parentDirectory) {
         super(name, parentDirectory);
     }
 
