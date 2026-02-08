@@ -8,37 +8,41 @@ import java.util.HashMap;
 
 public class ZipFavCommanderDirectoryMapper {
 
-    final HashMap<String, ZipFavCommanderDirectoryMapperItem> directoryMap = new HashMap<>();
+    private final HashMap<String, ZipFavCommanderDirectoryMapperItem> directoryMap = new HashMap<>();
+    private final ZipFavCommanderDirectoryMapperItem rootDirectoryMapperItem;
 
     public ZipFavCommanderDirectoryMapper() {
         final ZipFavCommanderDirectoryFile rootDirectory = new ZipFavCommanderDirectoryFile("", null);
-        final ZipFavCommanderDirectoryMapperItem rootDirectoryMapperItem = new ZipFavCommanderDirectoryMapperItem(rootDirectory);
+        rootDirectoryMapperItem = new ZipFavCommanderDirectoryMapperItem(rootDirectory);
         directoryMap.put("", rootDirectoryMapperItem);
     }
 
-    public ZipFavCommanderDirectoryFile getOrCreateDirectory(String directoryPath) {
+    public ZipFavCommanderDirectoryFile getOrCreateDirectory(final String directoryPath) {
         if (directoryMap.containsKey(directoryPath)) {
             return directoryMap.get(directoryPath).getDirectory();
         }
 
         // create directory / directories
-        ZipFavCommanderDirectoryMapper currentDirectoryMapper = rootDirectoryMapper;
+        ZipFavCommanderDirectoryMapperItem currentDirectoryMapperItem = rootDirectoryMapperItem;
 
-        for (int startSlash = 0, nextSlash = name.indexOf('/', startSlash);
-             nextSlash > 0;) {
-            final String nextDirectoryPath = name.substring(0, nextSlash);
+        for (int startSlash = 0, nextSlash = directoryPath.indexOf('/'); nextSlash > 0;
+             startSlash = nextSlash + 1, nextSlash = directoryPath.indexOf('/', startSlash)) {
+            final String nextDirectoryPath = directoryPath.substring(0, nextSlash);
 
             if (directoryMap.containsKey(nextDirectoryPath)) {
-                currentDirectoryMapper = directoryMap.get(nextDirectoryPath);
-            } else {
-                String nextDirectoryName = name.substring(startSlash, nextSlash);
-                new ZipFavCommanderDirectoryFile(nextDirectoryName, currentDirectoryMapper.getDirectory());
-                directoryMap.put(directoryPath, directory);
-                directory = currentDirectory.getDirectory();
-                ;
+                currentDirectoryMapperItem = directoryMap.get(nextDirectoryPath);
+                continue;
             }
+
+            final String nextDirectoryName = nextDirectoryPath.substring(startSlash, nextSlash);
+            final  ZipFavCommanderDirectoryFile nextDirectory =
+                    new ZipFavCommanderDirectoryFile(nextDirectoryName, currentDirectoryMapperItem.getDirectory());
+            final ZipFavCommanderDirectoryMapperItem nextDirectoryMapperItem = new ZipFavCommanderDirectoryMapperItem(nextDirectory);
+            directoryMap.put(directoryPath, nextDirectoryMapperItem);
+            currentDirectoryMapperItem = nextDirectoryMapperItem;
         }
 
+        return currentDirectoryMapperItem.getDirectory();
     }
 
     public void printValues() {
