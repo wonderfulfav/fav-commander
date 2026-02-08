@@ -4,15 +4,13 @@ import wf.fav.apps.fc.fs.FavCommanderFile;
 import wf.fav.apps.fc.fs.FavCommanderFileSystem;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ZipFavCommanderDirectoryFile extends AbstractZipFavCommanderFile {
 
     private final List<ZipFavCommanderFile> fileList = new ArrayList<>();
 
-    public ZipFavCommanderDirectoryFile(final String name, final ZipFavCommanderDirectoryFile parentDirectory) {
+    public ZipFavCommanderDirectoryFile(final String name, final FavCommanderFile parentDirectory) {
         super(name, parentDirectory);
     }
 

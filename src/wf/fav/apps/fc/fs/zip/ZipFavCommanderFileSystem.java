@@ -11,11 +11,8 @@ import java.util.zip.ZipFile;
 
 public class ZipFavCommanderFileSystem implements FavCommanderFileSystem {
 
-    public static void openZipFile(final FavCommanderFile file) {
-    }
-
-    public static void main(String[] args) {
-        final ZipFavCommanderDirectoryMapper directoryMapper = new ZipFavCommanderDirectoryMapper();
+    public static void openZipFile(final FavCommanderFile parentFile) {
+        final ZipFavCommanderDirectoryMapper directoryMapper = new ZipFavCommanderDirectoryMapper(parentFile);
 
         try (final ZipFile zipFile = new ZipFile("/test.zip")) {
             final Enumeration<? extends ZipEntry> entries = zipFile.entries();

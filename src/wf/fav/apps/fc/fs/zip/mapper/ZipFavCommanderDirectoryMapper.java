@@ -1,5 +1,6 @@
 package wf.fav.apps.fc.fs.zip.mapper;
 
+import wf.fav.apps.fc.fs.FavCommanderFile;
 import wf.fav.apps.fc.fs.zip.ZipFavCommanderDirectoryFile;
 
 import java.util.ArrayList;
@@ -11,8 +12,8 @@ public class ZipFavCommanderDirectoryMapper {
     private final HashMap<String, ZipFavCommanderDirectoryMapperItem> directoryMap = new HashMap<>();
     private final ZipFavCommanderDirectoryMapperItem rootDirectoryMapperItem;
 
-    public ZipFavCommanderDirectoryMapper() {
-        final ZipFavCommanderDirectoryFile rootDirectory = new ZipFavCommanderDirectoryFile("", null);
+    public ZipFavCommanderDirectoryMapper(final FavCommanderFile parentFile) {
+        final ZipFavCommanderDirectoryFile rootDirectory = new ZipFavCommanderDirectoryFile("", parentFile);
         rootDirectoryMapperItem = new ZipFavCommanderDirectoryMapperItem(rootDirectory);
         directoryMap.put("", rootDirectoryMapperItem);
     }
