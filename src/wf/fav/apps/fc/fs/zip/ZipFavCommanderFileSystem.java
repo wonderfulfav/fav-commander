@@ -73,7 +73,8 @@ public class ZipFavCommanderFileSystem implements FavCommanderFileSystem {
             final String nextDirectoryName = nextDirectoryPath.substring(startSlash, nextSlash);
             final  ZipFavCommanderDirectoryFile nextDirectory =
                     new ZipFavCommanderDirectoryFile(nextDirectoryName, currentDirectory);
-            directoryMap.put(directoryPath, nextDirectory);
+            directoryMap.put(nextDirectoryPath, nextDirectory);
+            currentDirectory.addZipFile(nextDirectory);
             currentDirectory = nextDirectory;
         }
 

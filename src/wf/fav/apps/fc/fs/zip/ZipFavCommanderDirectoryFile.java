@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ZipFavCommanderDirectoryFile extends AbstractZipFavCommanderFile {
 
-    private final List<ZipFavCommanderFile> fileList = new ArrayList<>();
+    private final List<FavCommanderFile> fileList = new ArrayList<>();
 
     public ZipFavCommanderDirectoryFile(final String name, final FavCommanderFile parentDirectory) {
         super(name, parentDirectory);
@@ -34,7 +34,7 @@ public class ZipFavCommanderDirectoryFile extends AbstractZipFavCommanderFile {
         throw new RuntimeException("This is a ZIP direcotry: " + getName());
     }
 
-    public void addZipFile(ZipFavCommanderFile file) {
+    public void addZipFile(final FavCommanderFile file) {
         fileList.add(file);
     }
 
