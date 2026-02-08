@@ -30,28 +30,6 @@ public class ZipFavCommanderFileSystem implements FavCommanderFileSystem {
                 final String directoryPath = name.substring(0, lastSlash + 1);
                 final ZipFavCommanderDirectoryFile directory = directoryMapper.getOrCreateDirectory(directoryPath);
 
-                if (directoryMap.containsKey(directoryPath)) {
-                    directory = directoryMap.get(directoryPath).getDirectory();
-                } else {
-                    // create directory / directories
-                    ZipFavCommanderDirectoryMapper currentDirectoryMapper = rootDirectoryMapper;
-
-                    for (int startSlash = 0, nextSlash = name.indexOf('/', startSlash);
-                         nextSlash > 0;) {
-                        final String nextDirectoryPath = name.substring(0, nextSlash);
-
-                        if (directoryMap.containsKey(nextDirectoryPath)) {
-                            currentDirectoryMapper = directoryMap.get(nextDirectoryPath);
-                        } else {
-                            String nextDirectoryName = name.substring(startSlash, nextSlash);
-                            new ZipFavCommanderDirectoryFile(nextDirectoryName, currentDirectoryMapper.getDirectory());
-                            directoryMap.put(directoryPath, directory);
-                            directory = currentDirectory.getDirectory();
-                            ;
-                        }
-                    }
-                }
-
                 if (entry.isDirectory()) {
                     continue;
                 }
@@ -67,14 +45,7 @@ public class ZipFavCommanderFileSystem implements FavCommanderFileSystem {
             throw new RuntimeException(e);
         }
 
-        new ArrayList<>(directoryMapper.getDirectoryMapValues()).stream().sorted(
-                Comparator.comparing(m -> m.getDirectory().getName())
-        ).forEach(m -> {
-            final ZipFavCommanderDirectoryFile dir = m.getDirectory();
-            System.out.println(dir.getName());
-            dir.listDirectoryFileList().forEach(
-                    f -> System.out.println("\t + " + f.getName()));
-        });
+        directoryMapper.printValues();
     }
 
     @Override
