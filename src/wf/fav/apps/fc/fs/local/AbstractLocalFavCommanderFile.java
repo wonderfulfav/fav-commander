@@ -55,10 +55,14 @@ public abstract class AbstractLocalFavCommanderFile implements FavCommanderFile 
 
     public long getFileSize() {
         if (isDirectory()) {
-            throw new RuntimeException("Directory: " + getName());
+            throw new RuntimeException("This is a directory: " + getName());
         }
 
         return file.length();
+    }
+
+    public File getFile() {
+        return file;
     }
 
 }

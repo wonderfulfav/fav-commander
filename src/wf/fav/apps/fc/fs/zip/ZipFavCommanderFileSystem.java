@@ -2,6 +2,7 @@ package wf.fav.apps.fc.fs.zip;
 
 import wf.fav.apps.fc.fs.FavCommanderFile;
 import wf.fav.apps.fc.fs.FavCommanderFileSystem;
+import wf.fav.apps.fc.fs.local.AbstractLocalFavCommanderFile;
 
 import java.io.IOException;
 import java.util.*;
@@ -14,10 +15,11 @@ public class ZipFavCommanderFileSystem implements FavCommanderFileSystem {
     final ZipFavCommanderDirectoryFile rootDirectory;
 
     public ZipFavCommanderFileSystem(final FavCommanderFile parentFile) {
-        rootDirectory = new ZipFavCommanderDirectoryFile("", parentFile);
+        rootDirectory = new ZipFavCommanderDirectoryFile("", parentFile.getParentDirectory());
         directoryMap.put("", rootDirectory);
 
-        try (final ZipFile zipFile = new ZipFile("/test.zip")) {
+        final AbstractLocalFavCommanderFile fsFile = ((AbstractLocalFavCommanderFile) parentFile);
+        try (final ZipFile zipFile = new ZipFile(fsFile.getFile())) {
             final Enumeration<? extends ZipEntry> entries = zipFile.entries();
 
             while (entries.hasMoreElements()) {
@@ -50,7 +52,7 @@ public class ZipFavCommanderFileSystem implements FavCommanderFileSystem {
 
     @Override
     public List<? extends FavCommanderFile> listRoots() {
-        return List.of();
+        return List.of(rootDirectory);
     }
 
     public ZipFavCommanderDirectoryFile getOrCreateDirectory(final String directoryPath) {

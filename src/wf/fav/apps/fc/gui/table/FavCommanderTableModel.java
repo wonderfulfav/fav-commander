@@ -82,7 +82,7 @@ public class FavCommanderTableModel {
         if (file.isDirectory()) {
             setCurrentDirectory(file);
         } else if (file.getName().endsWith(".zip")) {
-            new ZipFavCommanderFileSystem(file);
+            setCurrentDirectory(new ZipFavCommanderFileSystem(file).listRoots().getFirst());
         }
     }
 
