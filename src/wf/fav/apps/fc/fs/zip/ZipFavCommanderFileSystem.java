@@ -63,7 +63,7 @@ public class ZipFavCommanderFileSystem implements FavCommanderFileSystem {
 
         for (int startSlash = 0, nextSlash = directoryPath.indexOf('/'); nextSlash > 0;
              startSlash = nextSlash + 1, nextSlash = directoryPath.indexOf('/', startSlash)) {
-            final String nextDirectoryPath = directoryPath.substring(0, nextSlash);
+            final String nextDirectoryPath = directoryPath.substring(0, nextSlash + 1);
 
             if (directoryMap.containsKey(nextDirectoryPath)) {
                 currentDirectory = directoryMap.get(nextDirectoryPath);
