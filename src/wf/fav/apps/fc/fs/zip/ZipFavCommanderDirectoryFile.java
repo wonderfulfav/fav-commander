@@ -31,7 +31,7 @@ public class ZipFavCommanderDirectoryFile extends AbstractZipFavCommanderFile {
 
     @Override
     public long getFileSize() {
-        throw new RuntimeException("This is a ZIP direcotry: " + getName());
+        throw new RuntimeException("This is a ZIP directory: " + getName());
     }
 
     public void addZipFile(final FavCommanderFile file) {
