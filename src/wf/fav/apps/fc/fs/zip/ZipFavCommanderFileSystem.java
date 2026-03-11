@@ -84,11 +84,9 @@ public class ZipFavCommanderFileSystem implements FavCommanderFileSystem {
     }
 
     public void printValues() {
-        new ArrayList<>(directoryMap.values()).stream().sorted(
-                Comparator.comparing(AbstractZipFavCommanderFile::getName)
-        ).forEach(dir -> {
-            System.out.println(dir.getName());
-            dir.listDirectoryFileList().forEach(
+        directoryMap.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(dir -> {
+            System.out.println(dir.getKey());
+            dir.getValue().listDirectoryFileList().stream().filter(f -> !f.isDirectory()).forEach(
                     f -> System.out.println("\t + " + f.getName()));
         });
     }
