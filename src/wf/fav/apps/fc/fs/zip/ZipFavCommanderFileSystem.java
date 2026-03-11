@@ -60,27 +60,27 @@ public class ZipFavCommanderFileSystem implements FavCommanderFileSystem {
             return directoryMap.get(directoryPath);
         }
 
-        // create directory / directories
-        ZipFavCommanderDirectoryFile currentDirectory = rootDirectory;
+        // create directory structure
+        ZipFavCommanderDirectoryFile parentDirectory = rootDirectory;
 
-        for (int startSlash = 0, nextSlash = directoryPath.indexOf('/'); nextSlash > 0;
-             startSlash = nextSlash + 1, nextSlash = directoryPath.indexOf('/', startSlash)) {
-            final String nextDirectoryPath = directoryPath.substring(0, nextSlash + 1);
+        for (int startPath = 0, slashPosition = directoryPath.indexOf('/'); slashPosition > 0;
+             startPath = slashPosition + 1, slashPosition = directoryPath.indexOf('/', startPath)) {
+            final String currentDirectoryPath = directoryPath.substring(0, slashPosition + 1);
 
-            if (directoryMap.containsKey(nextDirectoryPath)) {
-                currentDirectory = directoryMap.get(nextDirectoryPath);
+            if (directoryMap.containsKey(currentDirectoryPath)) {
+                parentDirectory = directoryMap.get(currentDirectoryPath);
                 continue;
             }
 
-            final String nextDirectoryName = nextDirectoryPath.substring(startSlash, nextSlash);
-            final  ZipFavCommanderDirectoryFile nextDirectory =
-                    new ZipFavCommanderDirectoryFile(nextDirectoryName, currentDirectory);
-            directoryMap.put(nextDirectoryPath, nextDirectory);
-            currentDirectory.addZipFile(nextDirectory);
-            currentDirectory = nextDirectory;
+            final String currentDirectoryName = currentDirectoryPath.substring(startPath, slashPosition);
+            final ZipFavCommanderDirectoryFile currentDirectory =
+                    new ZipFavCommanderDirectoryFile(currentDirectoryName, parentDirectory);
+            directoryMap.put(currentDirectoryPath, currentDirectory);
+            parentDirectory.addZipFile(currentDirectory);
+            parentDirectory = currentDirectory;
         }
 
-        return currentDirectory;
+        return parentDirectory;
     }
 
     public void printValues() {

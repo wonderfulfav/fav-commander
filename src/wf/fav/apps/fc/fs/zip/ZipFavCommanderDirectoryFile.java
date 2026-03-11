@@ -34,7 +34,7 @@ public class ZipFavCommanderDirectoryFile extends AbstractZipFavCommanderFile {
         throw new RuntimeException("This is a ZIP directory: " + getName());
     }
 
-    public void addZipFile(final FavCommanderFile file) {
+    public void addZipFile(final AbstractZipFavCommanderFile file) {
         fileList.add(file);
     }
 
