@@ -1,27 +1,21 @@
 package wf.fav.apps.fc.fs.zip;
 
 import wf.fav.apps.fc.fs.FavCommanderFile;
-import wf.fav.apps.fc.fs.FavCommanderFileSystem;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ZipFavCommanderDirectoryFile extends AbstractZipFavCommanderFile {
 
-    private final List<FavCommanderFile> fileList = new ArrayList<>();
+    private final List<AbstractZipFavCommanderFile> fileList = new ArrayList<>();
 
-    public ZipFavCommanderDirectoryFile(final String name, final FavCommanderFile parentDirectory) {
-        super(name, parentDirectory);
+    public ZipFavCommanderDirectoryFile(final String name, final FavCommanderFile parentDirectory, final ZipFavCommanderFileSystem fileSystem) {
+        super(name, parentDirectory, fileSystem);
     }
 
     @Override
     public boolean isDirectory() {
         return true;
-    }
-
-    @Override
-    public FavCommanderFileSystem getFileSystem() {
-        return null;
     }
 
     @Override

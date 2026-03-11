@@ -15,7 +15,7 @@ public class ZipFavCommanderFileSystem implements FavCommanderFileSystem {
     final ZipFavCommanderDirectoryFile rootDirectory;
 
     public ZipFavCommanderFileSystem(final FavCommanderFile parentFile) {
-        rootDirectory = new ZipFavCommanderDirectoryFile("", parentFile.getParentDirectory());
+        rootDirectory = new ZipFavCommanderDirectoryFile("", parentFile.getParentDirectory(), this);
         directoryMap.put("", rootDirectory);
 
         final AbstractLocalFavCommanderFile fsFile = ((AbstractLocalFavCommanderFile) parentFile);
@@ -38,7 +38,7 @@ public class ZipFavCommanderFileSystem implements FavCommanderFileSystem {
 
                 // create the file
                 final String fileName = (lastSlash < 0) ? name : name.substring(lastSlash + 1);
-                final ZipFavCommanderFile file = new ZipFavCommanderFile(fileName, directory, entry);
+                final ZipFavCommanderFile file = new ZipFavCommanderFile(fileName, directory, this, entry);
 
                 // add the file to the directory
                 directory.addZipFile(file);
@@ -74,7 +74,7 @@ public class ZipFavCommanderFileSystem implements FavCommanderFileSystem {
 
             final String currentDirectoryName = currentDirectoryPath.substring(startPath, slashPosition);
             final ZipFavCommanderDirectoryFile currentDirectory =
-                    new ZipFavCommanderDirectoryFile(currentDirectoryName, parentDirectory);
+                    new ZipFavCommanderDirectoryFile(currentDirectoryName, parentDirectory, this);
             directoryMap.put(currentDirectoryPath, currentDirectory);
             parentDirectory.addZipFile(currentDirectory);
             parentDirectory = currentDirectory;
