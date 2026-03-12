@@ -1,7 +1,7 @@
 package wf.fav.apps.fc.gui.table;
 
 import wf.fav.apps.fc.fs.FavCommanderFile;
-import wf.fav.apps.fc.gui.FavCommanderFormatUtil;
+import wf.fav.apps.fc.gui.utils.FavCommanderFormatUtil;
 
 import javax.swing.*;
 import java.awt.*;

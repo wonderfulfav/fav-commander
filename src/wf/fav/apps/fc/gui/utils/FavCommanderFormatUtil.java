@@ -1,4 +1,4 @@
-package wf.fav.apps.fc.gui;
+package wf.fav.apps.fc.gui.utils;
 
 public class FavCommanderFormatUtil {
 
