@@ -1,6 +1,7 @@
 package wf.fav.apps.fc.gui.table;
 
 import wf.fav.apps.fc.fs.FavCommanderFile;
+import wf.fav.apps.fc.gui.FavCommanderController;
 import wf.fav.apps.fc.gui.utils.FavCommanderFormatUtil;
 
 import javax.swing.*;
@@ -17,7 +18,7 @@ public class FavCommanderTableView extends JComponent {
 
     public FavCommanderTableView() {
         model = new FavCommanderTableModel(this);
-        final FavCommanderTableController controller = new FavCommanderTableController(model);
+        final FavCommanderController controller = new FavCommanderController(model);
 
         addKeyListener(new KeyAdapter() {
             @Override

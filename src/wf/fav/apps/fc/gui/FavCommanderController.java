@@ -1,12 +1,14 @@
-package wf.fav.apps.fc.gui.table;
+package wf.fav.apps.fc.gui;
+
+import wf.fav.apps.fc.gui.table.FavCommanderTableModel;
 
 import static java.awt.event.KeyEvent.*;
 
-public class FavCommanderTableController {
+public class FavCommanderController {
 
     private final FavCommanderTableModel model;
 
-    public FavCommanderTableController(final FavCommanderTableModel favCommanderTableModel) {
+    public FavCommanderController(final FavCommanderTableModel favCommanderTableModel) {
         this.model = favCommanderTableModel;
     }
 
