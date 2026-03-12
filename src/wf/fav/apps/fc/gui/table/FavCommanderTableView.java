@@ -1,13 +1,10 @@
 package wf.fav.apps.fc.gui.table;
 
 import wf.fav.apps.fc.fs.FavCommanderFile;
-import wf.fav.apps.fc.gui.FavCommanderController;
 import wf.fav.apps.fc.gui.utils.FavCommanderFormatUtil;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 import static wf.fav.apps.fc.config.FavCommanderVisualConfigurationDarkTheme.*;
 import static wf.fav.apps.fc.config.FavCommanderVisualConfigurationFontSize.*;
@@ -18,14 +15,6 @@ public class FavCommanderTableView extends JComponent {
 
     public FavCommanderTableView() {
         model = new FavCommanderTableModel(this);
-        final FavCommanderController controller = new FavCommanderController(model);
-
-        addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(final KeyEvent e) {
-                controller.keyPressedAction(e.getKeyCode());
-            }
-        });
     }
 
     @Override

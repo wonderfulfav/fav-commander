@@ -4,6 +4,8 @@ import wf.fav.apps.fc.gui.table.FavCommanderTableView;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class FavCommanderMainWindow extends JFrame {
 
@@ -20,11 +22,23 @@ public class FavCommanderMainWindow extends JFrame {
         // BorderLayout is the default layout
         final Container p = getContentPane();
 
+        final JLabel topPanel = new JLabel("moo ha ha");
+        p.add(topPanel, BorderLayout.PAGE_START);
+
         leftPanel = new FavCommanderTableView();
         p.add(leftPanel, BorderLayout.LINE_START);
 
         rightPanel = new FavCommanderTableView();
         p.add(rightPanel, BorderLayout.LINE_END);
+
+        final FavCommanderController controller = new FavCommanderController(leftPanel.getModel());
+
+        leftPanel.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(final KeyEvent e) {
+                controller.keyPressedAction(e.getKeyCode());
+            }
+        });
 
         leftPanel.grabFocus();
         pack();
