@@ -13,16 +13,24 @@ public class FavCommanderMainWindow extends JFrame {
         setVisible(true);
         setLocation(100, 100);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        final Container p = getContentPane();
-        final FavCommanderTableView m = new FavCommanderTableView();
-        // BorderLayout is the default layout
-        p.add(m, BorderLayout.LINE_START);
-        m.grabFocus();
-        pack();
 
-        m.getModel().setCurrentDirectory(
+        // BorderLayout is the default layout
+        final Container p = getContentPane();
+
+        final FavCommanderTableView vl = new FavCommanderTableView();
+        p.add(vl, BorderLayout.LINE_START);
+        vl.getModel().setCurrentDirectory(
                 LocalFavCommanderFileSystem.getLocalFavCommanderFileSystemInstance()
                         .listRoots().getFirst());
+        vl.grabFocus();
+
+        final FavCommanderTableView vr = new FavCommanderTableView();
+        p.add(vr, BorderLayout.LINE_END);
+        vr.getModel().setCurrentDirectory(
+                LocalFavCommanderFileSystem.getLocalFavCommanderFileSystemInstance()
+                        .listRoots().getFirst());
+
+        pack();
     }
 
 }
