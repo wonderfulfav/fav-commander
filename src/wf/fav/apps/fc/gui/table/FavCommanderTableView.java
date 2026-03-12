@@ -44,13 +44,17 @@ public class FavCommanderTableView extends JComponent {
             return;
         }
 
-        g.setColor(CURSOR_BACKGROUND);
-        g.fillRect(0, model.getCursorIndex() * LINE_HEIGHT, width, LINE_HEIGHT);
+        g.setColor(FOREGROUND);
 
         for (int i = 0; i < model.getFileListSize(); i++) {
-            g.setColor((i == model.getCursorIndex()) ? CURSOR_FOREGROUND : FOREGROUND);
             paintFile(g, i);
         }
+
+        final int cursorIndex = model.getCursorIndex();
+        g.setColor(CURSOR_BACKGROUND);
+        g.fillRect(0, cursorIndex * LINE_HEIGHT, width, LINE_HEIGHT);
+        g.setColor(CURSOR_FOREGROUND);
+        paintFile(g, cursorIndex);
     }
 
     public void paintFile(final Graphics g, final int i) {
