@@ -1,12 +1,15 @@
 package wf.fav.apps.fc.gui;
 
-import wf.fav.apps.fc.fs.local.LocalFavCommanderFileSystem;
 import wf.fav.apps.fc.gui.table.FavCommanderTableView;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class FavCommanderMainWindow extends JFrame {
+
+    private final FavCommanderTableView leftPanel;
+
+    private final FavCommanderTableView rightPanel;
 
     public FavCommanderMainWindow() {
         super("fav commander");
@@ -17,20 +20,22 @@ public class FavCommanderMainWindow extends JFrame {
         // BorderLayout is the default layout
         final Container p = getContentPane();
 
-        final FavCommanderTableView vl = new FavCommanderTableView();
-        p.add(vl, BorderLayout.LINE_START);
-        vl.getModel().setCurrentDirectory(
-                LocalFavCommanderFileSystem.getLocalFavCommanderFileSystemInstance()
-                        .listRoots().getFirst());
-        vl.grabFocus();
+        leftPanel = new FavCommanderTableView();
+        p.add(leftPanel, BorderLayout.LINE_START);
 
-        final FavCommanderTableView vr = new FavCommanderTableView();
-        p.add(vr, BorderLayout.LINE_END);
-        vr.getModel().setCurrentDirectory(
-                LocalFavCommanderFileSystem.getLocalFavCommanderFileSystemInstance()
-                        .listRoots().getFirst());
+        rightPanel = new FavCommanderTableView();
+        p.add(rightPanel, BorderLayout.LINE_END);
 
+        leftPanel.grabFocus();
         pack();
+    }
+
+    public FavCommanderTableView getLeftPanel() {
+        return leftPanel;
+    }
+
+    public FavCommanderTableView getRightPanel() {
+        return rightPanel;
     }
 
 }

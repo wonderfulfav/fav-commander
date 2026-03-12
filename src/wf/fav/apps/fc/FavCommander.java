@@ -1,5 +1,6 @@
 package wf.fav.apps.fc;
 
+import wf.fav.apps.fc.fs.local.LocalFavCommanderFileSystem;
 import wf.fav.apps.fc.gui.FavCommanderMainWindow;
 
 import java.io.File;
@@ -7,7 +8,14 @@ import java.io.File;
 public class FavCommander {
     static void main() {
         new File(System.getProperty("user.dir"));
-        new FavCommanderMainWindow();
+        final FavCommanderMainWindow m = new FavCommanderMainWindow();
+        m.getLeftPanel().getModel().setCurrentDirectory(
+                LocalFavCommanderFileSystem.getLocalFavCommanderFileSystemInstance()
+                        .listRoots().getFirst());
+
+        m.getRightPanel().getModel().setCurrentDirectory(
+                LocalFavCommanderFileSystem.getLocalFavCommanderFileSystemInstance()
+                        .listRoots().getFirst());
     }
 
 }
