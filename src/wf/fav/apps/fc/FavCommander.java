@@ -9,11 +9,11 @@ public class FavCommander {
     static void main() {
         new File(System.getProperty("user.dir"));
         final FavCommanderMainWindow m = new FavCommanderMainWindow();
-        m.getLeftPanel().getModel().setCurrentDirectory(
+        m.getLeftPanelModel().setCurrentDirectory(
                 LocalFavCommanderFileSystem.getLocalFavCommanderFileSystemInstance()
                         .listRoots().getFirst());
 
-        m.getRightPanel().getModel().setCurrentDirectory(
+        m.getRightPanelModel().setCurrentDirectory(
                 LocalFavCommanderFileSystem.getLocalFavCommanderFileSystemInstance()
                         .listRoots().getFirst());
     }

@@ -21,7 +21,7 @@ public class FavCommanderTableModel {
         this.view = favCommanderTableView;
     }
 
-    private void viewRepaint() {
+    public void viewRepaint() {
         view.repaint();
     }
 

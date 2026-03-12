@@ -1,5 +1,6 @@
 package wf.fav.apps.fc.gui;
 
+import wf.fav.apps.fc.gui.table.FavCommanderTableModel;
 import wf.fav.apps.fc.gui.table.FavCommanderTableView;
 
 import javax.swing.*;
@@ -31,25 +32,25 @@ public class FavCommanderMainWindow extends JFrame {
         rightPanel = new FavCommanderTableView();
         p.add(rightPanel, BorderLayout.LINE_END);
 
-        final FavCommanderController controller = new FavCommanderController(leftPanel.getModel());
+        final FavCommanderController controller = new FavCommanderController(getLeftPanelModel(), getRightPanelModel());
 
-        leftPanel.addKeyListener(new KeyAdapter() {
+        topPanel.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(final KeyEvent e) {
                 controller.keyPressedAction(e.getKeyCode());
             }
         });
 
-        leftPanel.grabFocus();
+        topPanel.grabFocus();
         pack();
     }
 
-    public FavCommanderTableView getLeftPanel() {
-        return leftPanel;
+    public FavCommanderTableModel getLeftPanelModel() {
+        return leftPanel.getModel();
     }
 
-    public FavCommanderTableView getRightPanel() {
-        return rightPanel;
+    public FavCommanderTableModel getRightPanelModel() {
+        return rightPanel.getModel();
     }
 
 }
