@@ -21,6 +21,10 @@ public class FavCommanderTableModel {
         this.view = favCommanderTableView;
     }
 
+    private void viewRepaint() {
+        view.repaint();
+    }
+
     public int getCursorIndex() {
         return cursorIndex;
     }
@@ -47,20 +51,20 @@ public class FavCommanderTableModel {
         fileList.sort(FavCommanderFileComparator.NAME);
         selectedSet.clear();
         cursorIndex = 0;
-        view.repaint();
+        viewRepaint();
     }
 
     public void cursorUp() {
         if (cursorIndex > 0) {
             cursorIndex--;
-            view.repaint();
+            viewRepaint();
         }
     }
 
     public void cursorDown() {
         if (fileList != null && cursorIndex < fileList.size() - 1) {
             cursorIndex++;
-            view.repaint();
+            viewRepaint();
         }
     }
 
