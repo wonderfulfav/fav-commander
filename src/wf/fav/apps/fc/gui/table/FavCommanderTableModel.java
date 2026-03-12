@@ -81,6 +81,11 @@ public class FavCommanderTableModel {
     }
 
     public void openFileOrDirectory() {
+        if (isFileListEmpty()) {
+            goToParentDirectory();
+            return;
+        }
+
         final FavCommanderFile file = getFile(getCursorIndex());
 
         if (file.isDirectory()) {
