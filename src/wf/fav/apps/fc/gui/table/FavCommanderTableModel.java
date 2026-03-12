@@ -17,8 +17,8 @@ public class FavCommanderTableModel {
 
     private final FavCommanderTableView view;
 
-    public FavCommanderTableModel(final FavCommanderTableView favCommanderTableView) {
-        this.view = favCommanderTableView;
+    public FavCommanderTableModel(final FavCommanderTableView view) {
+        this.view = view;
     }
 
     public void viewRepaint() {
