@@ -10,9 +10,9 @@ import java.awt.event.KeyEvent;
 
 public class FavCommanderMainWindow extends JFrame {
 
-    private final FavCommanderTableView leftPanel;
+    private final FavCommanderTableModel leftPanelModel;
 
-    private final FavCommanderTableView rightPanel;
+    private final FavCommanderTableModel rightPanelModel;
 
     public FavCommanderMainWindow() {
         super("fav commander");
@@ -26,13 +26,16 @@ public class FavCommanderMainWindow extends JFrame {
         final JLabel topPanel = new JLabel("moo ha ha");
         p.add(topPanel, BorderLayout.PAGE_START);
 
-        leftPanel = new FavCommanderTableView();
+        final FavCommanderTableView leftPanel = new FavCommanderTableView();
         p.add(leftPanel, BorderLayout.LINE_START);
+        leftPanelModel = leftPanel.getModel();
 
-        rightPanel = new FavCommanderTableView();
+        final FavCommanderTableView rightPanel = new FavCommanderTableView();
         p.add(rightPanel, BorderLayout.LINE_END);
+        rightPanelModel = rightPanel.getModel();
 
-        final FavCommanderController controller = new FavCommanderController(getLeftPanelModel(), getRightPanelModel());
+        final FavCommanderController controller =
+                new FavCommanderController(leftPanelModel, rightPanelModel);
 
         topPanel.addKeyListener(new KeyAdapter() {
             @Override
@@ -46,11 +49,11 @@ public class FavCommanderMainWindow extends JFrame {
     }
 
     public FavCommanderTableModel getLeftPanelModel() {
-        return leftPanel.getModel();
+        return leftPanelModel;
     }
 
     public FavCommanderTableModel getRightPanelModel() {
-        return rightPanel.getModel();
+        return rightPanelModel;
     }
 
 }
