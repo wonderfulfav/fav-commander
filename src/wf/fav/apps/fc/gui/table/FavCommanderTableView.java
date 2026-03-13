@@ -40,8 +40,6 @@ public class FavCommanderTableView extends JComponent {
             return;
         }
 
-        g.setColor(theme.getForegroundColor());
-
         for (int i = 0; i < model.getFileListSize(); i++) {
             paintFile(g, i);
         }
@@ -62,9 +60,7 @@ public class FavCommanderTableView extends JComponent {
             g.drawString(FavCommanderFormatUtil.humanReadableSize(f.getFileSize()), TAB_OFFSET, i * LINE_HEIGHT + TEXT_OFFSET);
         }
 
-        if (model.selectedSetContains(f)) {
-            g.setColor(theme.getHighlightedColor());
-        }
+        g.setColor(model.selectedSetContains(f) ? theme.getHighlightedColor() : theme.getForegroundColor());
 
         g.drawString(f.getName(), LEFT_MARGIN, i * LINE_HEIGHT + TEXT_OFFSET);
     }
