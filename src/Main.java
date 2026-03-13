@@ -6,9 +6,6 @@ import wf.fav.apps.fc.sort.FavCommanderFileComparator;
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 void main() throws IOException {
-    System.out.println("Working Directory = " + System.getProperty("user.dir"));
-    new ZipFavCommanderFileSystem(null);
-
     LocalFavCommanderFileSystem localFileSystem = LocalFavCommanderFileSystem.getLocalFavCommanderFileSystemInstance();
     List<? extends FavCommanderFile> listRoots = localFileSystem.listRoots();
     listRoots.forEach(f -> System.out.println(f.getName()));
