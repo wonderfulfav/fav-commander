@@ -11,12 +11,11 @@ import java.util.zip.ZipFile;
 
 public class ZipFavCommanderFileSystem implements FavCommanderFileSystem {
 
-    private final HashMap<String, ZipFavCommanderDirectoryFile> directoryMap = new HashMap<>();
     private final ZipFavCommanderDirectoryFile rootDirectory;
 
     public ZipFavCommanderFileSystem(final FavCommanderFile parentFile) {
         rootDirectory = new ZipFavCommanderDirectoryFile("", parentFile.getParentDirectory(), this);
-        directoryMap.put("", rootDirectory);
+        final ZipFavCommanderFileSystemBuilder dirs = new ZipFavCommanderFileSystemBuilder(rootDirectory, this);
 
         final AbstractLocalFavCommanderFile fsFile = ((AbstractLocalFavCommanderFile) parentFile);
         try (final ZipFile zipFile = new ZipFile(fsFile.getFile())) {
@@ -30,7 +29,7 @@ public class ZipFavCommanderFileSystem implements FavCommanderFileSystem {
 
                 // find or create the parent directory
                 final String directoryPath = name.substring(0, lastSlash + 1);
-                final ZipFavCommanderDirectoryFile directory = getOrCreateDirectory(directoryPath);
+                final ZipFavCommanderDirectoryFile directory = dirs.getOrCreateDirectory(directoryPath);
 
                 if (entry.isDirectory()) {
                     continue;
@@ -46,8 +45,6 @@ public class ZipFavCommanderFileSystem implements FavCommanderFileSystem {
         } catch (final IOException e) {
             throw new RuntimeException(e);
         }
-
-        directoryMap.clear();
     }
 
     @Override
@@ -55,32 +52,48 @@ public class ZipFavCommanderFileSystem implements FavCommanderFileSystem {
         return List.of(rootDirectory);
     }
 
-    public ZipFavCommanderDirectoryFile getOrCreateDirectory(final String directoryPath) {
-        if (directoryMap.containsKey(directoryPath)) {
-            return directoryMap.get(directoryPath);
+    private static final class ZipFavCommanderFileSystemBuilder {
+
+        private final HashMap<String, ZipFavCommanderDirectoryFile> directoryMap = new HashMap<>();
+        private final ZipFavCommanderDirectoryFile rootDirectory;
+        private final ZipFavCommanderFileSystem fileSystem;
+
+        public ZipFavCommanderFileSystemBuilder(
+                final ZipFavCommanderDirectoryFile rootDirectory,
+                final ZipFavCommanderFileSystem fileSystem) {
+            this.rootDirectory = rootDirectory;
+            this.fileSystem = fileSystem;
+            directoryMap.put("", rootDirectory);
         }
 
-        // create directory structure
-        ZipFavCommanderDirectoryFile parentDirectory = rootDirectory;
-
-        for (int startPath = 0, slashPosition = directoryPath.indexOf('/'); slashPosition > 0;
-             startPath = slashPosition + 1, slashPosition = directoryPath.indexOf('/', startPath)) {
-            final String currentDirectoryPath = directoryPath.substring(0, slashPosition + 1);
-
-            if (directoryMap.containsKey(currentDirectoryPath)) {
-                parentDirectory = directoryMap.get(currentDirectoryPath);
-                continue;
+        public ZipFavCommanderDirectoryFile getOrCreateDirectory(final String directoryPath) {
+            if (directoryMap.containsKey(directoryPath)) {
+                return directoryMap.get(directoryPath);
             }
 
-            final String currentDirectoryName = currentDirectoryPath.substring(startPath, slashPosition);
-            final ZipFavCommanderDirectoryFile currentDirectory =
-                    new ZipFavCommanderDirectoryFile(currentDirectoryName, parentDirectory, this);
-            directoryMap.put(currentDirectoryPath, currentDirectory);
-            parentDirectory.addZipFile(currentDirectory);
-            parentDirectory = currentDirectory;
+            // create directory structure
+            ZipFavCommanderDirectoryFile parentDirectory = rootDirectory;
+
+            for (int startPath = 0, slashPosition = directoryPath.indexOf('/'); slashPosition > 0;
+                 startPath = slashPosition + 1, slashPosition = directoryPath.indexOf('/', startPath)) {
+                final String currentDirectoryPath = directoryPath.substring(0, slashPosition + 1);
+
+                if (directoryMap.containsKey(currentDirectoryPath)) {
+                    parentDirectory = directoryMap.get(currentDirectoryPath);
+                    continue;
+                }
+
+                final String currentDirectoryName = currentDirectoryPath.substring(startPath, slashPosition);
+                final ZipFavCommanderDirectoryFile currentDirectory =
+                        new ZipFavCommanderDirectoryFile(currentDirectoryName, parentDirectory, fileSystem);
+                directoryMap.put(currentDirectoryPath, currentDirectory);
+                parentDirectory.addZipFile(currentDirectory);
+                parentDirectory = currentDirectory;
+            }
+
+            return parentDirectory;
         }
 
-        return parentDirectory;
     }
 
 }
