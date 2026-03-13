@@ -2,13 +2,13 @@ package wf.fav.apps.fc.config;
 
 import java.awt.Color;
 
-public class FavCommanderVisualConfigurationDarkTheme implements FavCommanderVisualConfigurationTheme {
+public class FavCommanderVisualConfigurationLightTheme implements FavCommanderVisualConfigurationTheme {
 
-    private static final Color BACKGROUND = Color.BLACK;
-    private static final Color FOREGROUND = new Color(0, 127, 0);
-    private static final Color CURSOR_BACKGROUND = FOREGROUND;
-    private static final Color CURSOR_FOREGROUND = BACKGROUND;
-    private static final Color HIGHLIGHTED = Color.GREEN;
+    private static final Color BACKGROUND = Color.WHITE;
+    private static final Color FOREGROUND = Color.BLACK;
+    private static final Color CURSOR_BACKGROUND = Color.GRAY;
+    private static final Color CURSOR_FOREGROUND = Color.BLACK;
+    private static final Color HIGHLIGHTED = Color.BLUE;
 
     @Override
     public Color getBackgroundColor() {

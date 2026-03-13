@@ -1,5 +1,6 @@
 package wf.fav.apps.fc.gui.table;
 
+import wf.fav.apps.fc.config.FavCommanderVisualConfigurationTheme;
 import wf.fav.apps.fc.fs.FavCommanderFile;
 import wf.fav.apps.fc.fs.zip.ZipFavCommanderFileSystem;
 import wf.fav.apps.fc.sort.FavCommanderFileComparator;
@@ -103,6 +104,11 @@ public class FavCommanderTableModel {
         }
 
         setCurrentDirectory(parentDirectory);
+    }
+
+    public void setTheme(final FavCommanderVisualConfigurationTheme theme) {
+        view.setTheme(theme);
+        viewRepaint();
     }
 
 }

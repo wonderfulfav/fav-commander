@@ -1,5 +1,7 @@
 package wf.fav.apps.fc.gui;
 
+import wf.fav.apps.fc.config.FavCommanderVisualConfigurationDarkTheme;
+import wf.fav.apps.fc.config.FavCommanderVisualConfigurationLightTheme;
 import wf.fav.apps.fc.gui.table.FavCommanderTableModel;
 import wf.fav.apps.fc.gui.table.FavCommanderTableView;
 
@@ -34,8 +36,11 @@ public class FavCommanderMainWindow extends JFrame {
         p.add(rightPanel, BorderLayout.LINE_END);
         rightPanelModel = rightPanel.getModel();
 
+        final FavCommanderVisualConfigurationDarkTheme darkTheme = new FavCommanderVisualConfigurationDarkTheme();
+        final FavCommanderVisualConfigurationLightTheme lightTheme = new FavCommanderVisualConfigurationLightTheme();
+
         final FavCommanderController controller =
-                new FavCommanderController(leftPanelModel, rightPanelModel);
+                new FavCommanderController(leftPanelModel, rightPanelModel, darkTheme, lightTheme);
 
         topPanel.addKeyListener(new KeyAdapter() {
             @Override

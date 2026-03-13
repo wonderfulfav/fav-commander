@@ -1,5 +1,8 @@
 package wf.fav.apps.fc.gui;
 
+import wf.fav.apps.fc.config.FavCommanderVisualConfigurationDarkTheme;
+import wf.fav.apps.fc.config.FavCommanderVisualConfigurationLightTheme;
+import wf.fav.apps.fc.config.FavCommanderVisualConfigurationTheme;
 import wf.fav.apps.fc.gui.table.FavCommanderTableModel;
 
 import static java.awt.event.KeyEvent.*;
@@ -12,12 +15,25 @@ public class FavCommanderController {
 
     private FavCommanderTableModel activePanelModel;
 
+    private final FavCommanderVisualConfigurationDarkTheme darkTheme;
+
+    private final FavCommanderVisualConfigurationLightTheme lightTheme;
+
+    private FavCommanderVisualConfigurationTheme activeTheme;
+
     public FavCommanderController(
             final FavCommanderTableModel leftPanelModel,
-            final FavCommanderTableModel rightPanelModel) {
+            final FavCommanderTableModel rightPanelModel,
+            final FavCommanderVisualConfigurationDarkTheme darkTheme,
+            final FavCommanderVisualConfigurationLightTheme lightTheme) {
         this.leftPanelModel = leftPanelModel;
         this.rightPanelModel = rightPanelModel;
         activePanelModel = leftPanelModel;
+        this.darkTheme = darkTheme;
+        this.lightTheme = lightTheme;
+        activeTheme = darkTheme;
+        leftPanelModel.setTheme(activeTheme);
+        rightPanelModel.setTheme(activeTheme);
     }
 
     public void keyPressedAction(final int keyCode) {
@@ -36,6 +52,8 @@ public class FavCommanderController {
 
             case VK_G -> switchPanels();
 
+            case VK_T -> switchTheme();
+
             default -> System.out.println(keyCode);
         }
     }
@@ -44,6 +62,12 @@ public class FavCommanderController {
         activePanelModel = (activePanelModel == leftPanelModel) ? rightPanelModel : leftPanelModel;
         leftPanelModel.viewRepaint();
         rightPanelModel.viewRepaint();
+    }
+
+    private void switchTheme() {
+        activeTheme = (activeTheme == darkTheme) ? lightTheme : darkTheme;
+        leftPanelModel.setTheme(activeTheme);
+        rightPanelModel.setTheme(activeTheme);
     }
 
 }

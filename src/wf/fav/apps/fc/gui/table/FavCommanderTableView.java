@@ -1,17 +1,19 @@
 package wf.fav.apps.fc.gui.table;
 
+import wf.fav.apps.fc.config.FavCommanderVisualConfigurationTheme;
 import wf.fav.apps.fc.fs.FavCommanderFile;
 import wf.fav.apps.fc.gui.utils.FavCommanderFormatUtil;
 
 import javax.swing.*;
 import java.awt.*;
 
-import static wf.fav.apps.fc.config.FavCommanderVisualConfigurationDarkTheme.*;
 import static wf.fav.apps.fc.config.FavCommanderVisualConfigurationFontSize.*;
 
 public class FavCommanderTableView extends JComponent {
 
     private final FavCommanderTableModel model;
+
+    private FavCommanderVisualConfigurationTheme theme;
 
     public FavCommanderTableView() {
         model = new FavCommanderTableModel(this);
@@ -22,28 +24,32 @@ public class FavCommanderTableView extends JComponent {
         return new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT);
     }
 
+    public void setTheme(final FavCommanderVisualConfigurationTheme theme) {
+        this.theme = theme;
+    }
+
     @Override
     public void paint(final Graphics g) {
         final int width = getWidth();
         final int height = getHeight();
 
-        g.setColor(BACKGROUND);
+        g.setColor(theme.getBackgroundColor());
         g.fillRect(0, 0, width, height);
 
         if (model.isFileListEmpty()) {
             return;
         }
 
-        g.setColor(FOREGROUND);
+        g.setColor(theme.getForegroundColor());
 
         for (int i = 0; i < model.getFileListSize(); i++) {
             paintFile(g, i);
         }
 
         final int cursorIndex = model.getCursorIndex();
-        g.setColor(CURSOR_BACKGROUND);
+        g.setColor(theme.getCursorBackgroundColor());
         g.fillRect(0, cursorIndex * LINE_HEIGHT, width, LINE_HEIGHT);
-        g.setColor(CURSOR_FOREGROUND);
+        g.setColor(theme.getCursorForegroundColor());
         paintFile(g, cursorIndex);
     }
 
@@ -57,7 +63,7 @@ public class FavCommanderTableView extends JComponent {
         }
 
         if (model.selectedSetContains(f)) {
-            g.setColor(HIGHLIGHTED);
+            g.setColor(theme.getHighlightedColor());
         }
 
         g.drawString(f.getName(), LEFT_MARGIN, i * LINE_HEIGHT + TEXT_OFFSET);
