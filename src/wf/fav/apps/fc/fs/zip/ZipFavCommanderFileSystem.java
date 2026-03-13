@@ -12,7 +12,7 @@ import java.util.zip.ZipFile;
 public class ZipFavCommanderFileSystem implements FavCommanderFileSystem {
 
     private final HashMap<String, ZipFavCommanderDirectoryFile> directoryMap = new HashMap<>();
-    final ZipFavCommanderDirectoryFile rootDirectory;
+    private final ZipFavCommanderDirectoryFile rootDirectory;
 
     public ZipFavCommanderFileSystem(final FavCommanderFile parentFile) {
         rootDirectory = new ZipFavCommanderDirectoryFile("", parentFile.getParentDirectory(), this);
@@ -47,7 +47,7 @@ public class ZipFavCommanderFileSystem implements FavCommanderFileSystem {
             throw new RuntimeException(e);
         }
 
-        printValues();
+        directoryMap.clear();
     }
 
     @Override
@@ -81,14 +81,6 @@ public class ZipFavCommanderFileSystem implements FavCommanderFileSystem {
         }
 
         return parentDirectory;
-    }
-
-    public void printValues() {
-        directoryMap.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(dir -> {
-            System.out.println(dir.getKey());
-            dir.getValue().listDirectoryFileList().stream().filter(f -> !f.isDirectory()).forEach(
-                    f -> System.out.println("\t + " + f.getName()));
-        });
     }
 
 }
