@@ -1,6 +1,5 @@
 import wf.fav.apps.fc.fs.FavCommanderFile;
 import wf.fav.apps.fc.fs.local.LocalFavCommanderFileSystem;
-import wf.fav.apps.fc.fs.zip.ZipFavCommanderFileSystem;
 import wf.fav.apps.fc.sort.FavCommanderFileComparator;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
