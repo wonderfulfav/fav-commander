@@ -48,7 +48,7 @@ public class ZipFavCommanderFileSystem implements FavCommanderFileSystem {
     }
 
     @Override
-    public List<? extends FavCommanderFile> listRoots() {
+    public List<? extends FavCommanderFile> getRootList() {
         return List.of(rootDirectory);
     }
 

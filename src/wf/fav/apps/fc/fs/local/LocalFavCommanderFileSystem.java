@@ -14,7 +14,7 @@ public class LocalFavCommanderFileSystem implements FavCommanderFileSystem {
     private LocalFavCommanderFileSystem() { }
 
     @Override
-    public List<? extends FavCommanderFile> listRoots() {
+    public List<? extends FavCommanderFile> getRootList() {
         // can also be done as:
         // for (Path path : Paths.get("/").getFileSystem().getRootDirectories()) System.out.println(path);
         return Arrays.stream(File.listRoots()).map(LocalRootFavCommanderFile::new).toList();

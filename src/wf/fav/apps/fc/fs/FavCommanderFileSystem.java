@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface FavCommanderFileSystem {
 
-    List<? extends FavCommanderFile> listRoots();
+    List<? extends FavCommanderFile> getRootList();
 
 }

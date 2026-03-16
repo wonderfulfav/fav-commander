@@ -6,9 +6,9 @@ import wf.fav.apps.fc.sort.FavCommanderFileComparator;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 void main() throws IOException {
     LocalFavCommanderFileSystem localFileSystem = LocalFavCommanderFileSystem.getLocalFavCommanderFileSystemInstance();
-    List<? extends FavCommanderFile> listRoots = localFileSystem.listRoots();
-    listRoots.forEach(f -> System.out.println(f.getName()));
-    List<? extends FavCommanderFile> fileList = listRoots.getFirst().listDirectoryFileList();
+    List<? extends FavCommanderFile> rootList = localFileSystem.getRootList();
+    rootList.forEach(f -> System.out.println(f.getName()));
+    List<? extends FavCommanderFile> fileList = rootList.getFirst().listDirectoryFileList();
     fileList.sort(FavCommanderFileComparator.NAME);
     fileList.forEach(f -> System.out.println(f.getName()));
 

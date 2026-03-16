@@ -14,7 +14,7 @@ public class FavCommander {
                 new File(System.getProperty("user.dir")));
         final FavCommanderMainWindow m = new FavCommanderMainWindow();
         final FavCommanderFile root = LocalFavCommanderFileSystem
-                .getLocalFavCommanderFileSystemInstance().listRoots().getFirst();
+                .getLocalFavCommanderFileSystemInstance().getRootList().getFirst();
         m.getLeftPanelModel().setCurrentDirectory(root);
         m.getRightPanelModel().setCurrentDirectory(userDir);
     }
