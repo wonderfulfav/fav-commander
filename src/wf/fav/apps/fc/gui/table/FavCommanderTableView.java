@@ -41,7 +41,13 @@ public class FavCommanderTableView extends JComponent {
         }
 
         for (int i = 0; i < model.getFileListSize(); i++) {
+            g.setColor(model.selectedSetContains(model.getFile(i)) ?
+                    theme.getHighlightedColor() : theme.getForegroundColor());
             paintFile(g, i);
+        }
+
+        if (!model.isActive()) {
+            return;
         }
 
         final int cursorIndex = model.getCursorIndex();
@@ -59,8 +65,6 @@ public class FavCommanderTableView extends JComponent {
         } else {
             g.drawString(FavCommanderFormatUtil.humanReadableSize(f.getFileSize()), TAB_OFFSET, i * LINE_HEIGHT + TEXT_OFFSET);
         }
-
-        g.setColor(model.selectedSetContains(f) ? theme.getHighlightedColor() : theme.getForegroundColor());
 
         g.drawString(f.getName(), LEFT_MARGIN, i * LINE_HEIGHT + TEXT_OFFSET);
     }

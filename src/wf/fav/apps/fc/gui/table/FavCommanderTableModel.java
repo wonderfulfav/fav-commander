@@ -15,6 +15,7 @@ public class FavCommanderTableModel {
     private List<? extends FavCommanderFile> fileList;
     private final Set<FavCommanderFile> selectedSet = new HashSet<>();
     private int cursorIndex;
+    private boolean active;
 
     private final FavCommanderTableView view;
 
@@ -109,6 +110,15 @@ public class FavCommanderTableModel {
     public void setTheme(final FavCommanderVisualConfigurationTheme theme) {
         view.setTheme(theme);
         viewRepaint();
+    }
+
+    public void setActive(final boolean active) {
+        this.active = active;
+        viewRepaint();
+    }
+
+    public boolean isActive() {
+        return active;
     }
 
 }
