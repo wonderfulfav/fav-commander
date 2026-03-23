@@ -31,6 +31,9 @@ public class FavCommanderController {
         activePanelModel = leftPanelModel;
         leftPanelModel.setActive(true);
 
+        leftPanelModel.setController(this);
+        rightPanelModel.setController(this);
+
         this.darkTheme = darkTheme;
         this.lightTheme = lightTheme;
         activeTheme = darkTheme;
@@ -60,7 +63,7 @@ public class FavCommanderController {
         }
     }
 
-    private void switchPanels() {
+    public void switchPanels() {
         activePanelModel.setActive(false);
         activePanelModel = (activePanelModel == leftPanelModel) ? rightPanelModel : leftPanelModel;
         activePanelModel.setActive(true);

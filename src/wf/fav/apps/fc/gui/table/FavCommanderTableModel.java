@@ -3,6 +3,7 @@ package wf.fav.apps.fc.gui.table;
 import wf.fav.apps.fc.config.FavCommanderVisualConfigurationTheme;
 import wf.fav.apps.fc.fs.FavCommanderFile;
 import wf.fav.apps.fc.fs.zip.ZipFavCommanderFileSystem;
+import wf.fav.apps.fc.gui.FavCommanderController;
 import wf.fav.apps.fc.sort.FavCommanderFileComparator;
 
 import java.util.HashSet;
@@ -14,6 +15,8 @@ public class FavCommanderTableModel {
     private final FavCommanderTableView view;
     private final Set<FavCommanderFile> selectedSet = new HashSet<>();
 
+    private FavCommanderController controller;
+
     private FavCommanderFile currentDirectory;
     private List<? extends FavCommanderFile> fileList;
     private int cursorIndex;
@@ -21,6 +24,10 @@ public class FavCommanderTableModel {
 
     public FavCommanderTableModel(final FavCommanderTableView view) {
         this.view = view;
+    }
+
+    public void setController(final FavCommanderController controller) {
+        this.controller = controller;
     }
 
     public void viewRepaint() {
@@ -68,6 +75,20 @@ public class FavCommanderTableModel {
             cursorIndex++;
             viewRepaint();
         }
+    }
+
+    public void setCursorIndex(final int index) {
+        if (isFileListEmpty() || index >= fileList.size()) {
+            return;
+        }
+
+        cursorIndex = index;
+
+        if (!isActive()) {
+            controller.switchPanels();
+        }
+
+        viewRepaint();
     }
 
     public void markFile() {

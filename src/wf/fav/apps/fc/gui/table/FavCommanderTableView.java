@@ -6,6 +6,8 @@ import wf.fav.apps.fc.gui.utils.FavCommanderFormatUtil;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import static wf.fav.apps.fc.config.FavCommanderVisualConfigurationFontSize.*;
 
@@ -17,6 +19,13 @@ public class FavCommanderTableView extends JComponent {
 
     public FavCommanderTableView() {
         model = new FavCommanderTableModel(this);
+
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                model.setCursorIndex(e.getY() / LINE_HEIGHT);
+            }
+        });
     }
 
     @Override
