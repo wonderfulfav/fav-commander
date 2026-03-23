@@ -30,11 +30,8 @@ public class FavCommanderTableView extends JComponent {
 
     @Override
     public void paint(final Graphics g) {
-        final int width = getWidth();
-        final int height = getHeight();
-
         g.setColor(theme.getBackgroundColor());
-        g.fillRect(0, 0, width, height);
+        g.fillRect(0, 0, getWidth(), getHeight());
 
         if (model.isFileListEmpty()) {
             return;
@@ -46,15 +43,9 @@ public class FavCommanderTableView extends JComponent {
             paintFile(g, i);
         }
 
-        if (!model.isActive()) {
-            return;
+        if (model.isActive()) {
+            paintCursorFile(g);
         }
-
-        final int cursorIndex = model.getCursorIndex();
-        g.setColor(theme.getCursorBackgroundColor());
-        g.fillRect(0, cursorIndex * LINE_HEIGHT, width, LINE_HEIGHT);
-        g.setColor(theme.getCursorForegroundColor());
-        paintFile(g, cursorIndex);
     }
 
     public void paintFile(final Graphics g, final int i) {
@@ -67,6 +58,15 @@ public class FavCommanderTableView extends JComponent {
         }
 
         g.drawString(f.getName(), LEFT_MARGIN, i * LINE_HEIGHT + TEXT_OFFSET);
+    }
+
+    public void paintCursorFile(final Graphics g) {
+        final int cursorIndex = model.getCursorIndex();
+        g.setColor(theme.getCursorBackgroundColor());
+        g.fillRect(0, cursorIndex * LINE_HEIGHT, getWidth(), LINE_HEIGHT);
+        g.setColor(model.selectedSetContains(model.getFile(cursorIndex)) ?
+                theme.getHighlightedColor() : theme.getCursorForegroundColor());
+        paintFile(g, cursorIndex);
     }
 
     @Override
