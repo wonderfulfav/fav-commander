@@ -11,13 +11,13 @@ import java.util.Set;
 
 public class FavCommanderTableModel {
 
+    private final FavCommanderTableView view;
+    private final Set<FavCommanderFile> selectedSet = new HashSet<>();
+
     private FavCommanderFile currentDirectory;
     private List<? extends FavCommanderFile> fileList;
-    private final Set<FavCommanderFile> selectedSet = new HashSet<>();
     private int cursorIndex;
     private boolean active;
-
-    private final FavCommanderTableView view;
 
     public FavCommanderTableModel(final FavCommanderTableView view) {
         this.view = view;
