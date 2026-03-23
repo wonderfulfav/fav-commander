@@ -49,6 +49,7 @@ public class FavCommanderMainWindow extends JFrame {
             }
         });
 
+        topPanel.setFocusTraversalKeysEnabled(false);
         topPanel.grabFocus();
         pack();
     }

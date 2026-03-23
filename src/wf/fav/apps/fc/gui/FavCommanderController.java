@@ -52,7 +52,7 @@ public class FavCommanderController {
 
             case VK_LEFT, VK_BACK_SPACE -> activePanelModel.goToParentDirectory();
 
-            case VK_G -> switchPanels();
+            case VK_TAB -> switchPanels();
 
             case VK_T -> switchTheme();
 
