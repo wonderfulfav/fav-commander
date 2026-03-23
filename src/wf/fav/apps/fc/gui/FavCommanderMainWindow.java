@@ -2,8 +2,8 @@ package wf.fav.apps.fc.gui;
 
 import wf.fav.apps.fc.config.FavCommanderVisualConfigurationDarkTheme;
 import wf.fav.apps.fc.config.FavCommanderVisualConfigurationLightTheme;
+import wf.fav.apps.fc.gui.table.FavCommanderPanel;
 import wf.fav.apps.fc.gui.table.FavCommanderTableModel;
-import wf.fav.apps.fc.gui.table.FavCommanderTableView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,11 +28,11 @@ public class FavCommanderMainWindow extends JFrame {
         final JLabel topPanel = new JLabel("moo ha ha");
         p.add(topPanel, BorderLayout.PAGE_START);
 
-        final FavCommanderTableView leftPanel = new FavCommanderTableView();
+        final FavCommanderPanel leftPanel = new FavCommanderPanel();
         p.add(leftPanel, BorderLayout.LINE_START);
         leftPanelModel = leftPanel.getModel();
 
-        final FavCommanderTableView rightPanel = new FavCommanderTableView();
+        final FavCommanderPanel rightPanel = new FavCommanderPanel();
         p.add(rightPanel, BorderLayout.LINE_END);
         rightPanelModel = rightPanel.getModel();
 
@@ -41,6 +41,11 @@ public class FavCommanderMainWindow extends JFrame {
 
         final FavCommanderController controller =
                 new FavCommanderController(leftPanelModel, rightPanelModel, darkTheme, lightTheme);
+
+        leftPanel.getTopPanel().setBackground(darkTheme.getBackgroundColor());
+        leftPanel.getScrollBar().setBackground(darkTheme.getBackgroundColor());
+        rightPanel.getTopPanel().setBackground(darkTheme.getBackgroundColor());
+        rightPanel.getScrollBar().setBackground(darkTheme.getBackgroundColor());
 
         topPanel.addKeyListener(new KeyAdapter() {
             @Override
