@@ -13,11 +13,11 @@ public class FavCommanderController {
 
     private final FavCommanderTableModel rightPanelModel;
 
-    private FavCommanderTableModel activePanelModel;
-
     private final FavCommanderVisualConfigurationDarkTheme darkTheme;
 
     private final FavCommanderVisualConfigurationLightTheme lightTheme;
+
+    private FavCommanderTableModel activePanelModel;
 
     private FavCommanderVisualConfigurationTheme activeTheme;
 
