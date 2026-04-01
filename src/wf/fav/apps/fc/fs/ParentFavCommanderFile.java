@@ -1,17 +1,15 @@
 package wf.fav.apps.fc.fs;
 
-import wf.fav.apps.fc.fs.zip.ZipFavCommanderFileSystem;
-
 import java.util.List;
 
 public class ParentFavCommanderFile implements FavCommanderFile {
 
     private final FavCommanderFile parentDirectory;
-    private final ZipFavCommanderFileSystem fileSystem;
+    private final FavCommanderFileSystem fileSystem;
 
     public ParentFavCommanderFile(
             final FavCommanderFile parentDirectory,
-            final ZipFavCommanderFileSystem fileSystem) {
+            final FavCommanderFileSystem fileSystem) {
         this.parentDirectory = parentDirectory;
         this.fileSystem = fileSystem;
     }
@@ -42,7 +40,7 @@ public class ParentFavCommanderFile implements FavCommanderFile {
     }
 
     @Override
-    public ZipFavCommanderFileSystem getFileSystem() {
+    public FavCommanderFileSystem getFileSystem() {
         return fileSystem;
     }
 
