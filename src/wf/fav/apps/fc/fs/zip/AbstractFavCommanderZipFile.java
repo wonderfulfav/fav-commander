@@ -4,13 +4,13 @@ import wf.fav.apps.fc.fs.FavCommanderFile;
 import wf.fav.apps.fc.fs.FavCommanderFileSystem;
 import wf.fav.apps.fc.fs.FavCommanderParentDirectory;
 
-public abstract class AbstractZipFavCommanderFile implements FavCommanderFile {
+public abstract class AbstractFavCommanderZipFile implements FavCommanderFile {
 
     final String name;
     private final FavCommanderParentDirectory parentDirectory;
     private final FavCommanderFileSystem fileSystem;
 
-    public AbstractZipFavCommanderFile(
+    public AbstractFavCommanderZipFile(
             final String name,
             final FavCommanderParentDirectory parentDirectory,
             final FavCommanderFileSystem fileSystem) {

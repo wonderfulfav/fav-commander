@@ -7,20 +7,20 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
-public class LocalFavCommanderFileSystem implements FavCommanderFileSystem {
+public class FavCommanderLocalFileSystem implements FavCommanderFileSystem {
 
-    private static final LocalFavCommanderFileSystem instance = new LocalFavCommanderFileSystem();
+    private static final FavCommanderLocalFileSystem instance = new FavCommanderLocalFileSystem();
 
-    private LocalFavCommanderFileSystem() { }
+    private FavCommanderLocalFileSystem() { }
 
     @Override
     public List<? extends FavCommanderFile> getRootList() {
         // can also be done as:
         // for (Path path : Paths.get("/").getFileSystem().getRootDirectories()) System.out.println(path);
-        return Arrays.stream(File.listRoots()).map(LocalRootFavCommanderFile::new).toList();
+        return Arrays.stream(File.listRoots()).map(FavCommanderRootLocalFile::new).toList();
     }
 
-    public static LocalFavCommanderFileSystem getLocalFavCommanderFileSystemInstance() {
+    public static FavCommanderLocalFileSystem getLocalFavCommanderFileSystemInstance() {
         return instance;
     }
 

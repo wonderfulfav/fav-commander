@@ -7,11 +7,11 @@ import wf.fav.apps.fc.fs.FavCommanderParentDirectory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ZipFavCommanderDirectoryFile extends AbstractZipFavCommanderFile {
+public class FavCommanderZipDirectory extends AbstractFavCommanderZipFile {
 
     private final List<FavCommanderFile> fileList = new ArrayList<>();
 
-    public ZipFavCommanderDirectoryFile(
+    public FavCommanderZipDirectory(
             final String name,
             final FavCommanderParentDirectory parentDirectory,
             final FavCommanderFileSystem fileSystem) {
@@ -34,7 +34,7 @@ public class ZipFavCommanderDirectoryFile extends AbstractZipFavCommanderFile {
         throw new RuntimeException("This is a ZIP directory: " + getName());
     }
 
-    public void addZipFile(final AbstractZipFavCommanderFile file) {
+    public void addZipFile(final AbstractFavCommanderZipFile file) {
         fileList.add(file);
     }
 

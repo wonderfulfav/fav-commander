@@ -2,11 +2,11 @@ package wf.fav.apps.fc.fs.local;
 
 import java.io.File;
 
-public class LocalFavCommanderFile extends AbstractLocalFavCommanderFile {
+public class FavCommanderLocalFile extends AbstractFavCommanderLocalFile {
 
     private final String name;
 
-    public LocalFavCommanderFile(final File file) {
+    public FavCommanderLocalFile(final File file) {
         super(file);
         this.name = file.getAbsoluteFile().getName();
     }

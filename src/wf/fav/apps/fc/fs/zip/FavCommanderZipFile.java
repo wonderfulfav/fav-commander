@@ -6,14 +6,14 @@ import wf.fav.apps.fc.fs.FavCommanderParentDirectory;
 import java.util.List;
 import java.util.zip.ZipEntry;
 
-public class ZipFavCommanderFile extends AbstractZipFavCommanderFile {
+public class FavCommanderZipFile extends AbstractFavCommanderZipFile {
 
     final ZipEntry zipEntry;
 
-    public ZipFavCommanderFile(
+    public FavCommanderZipFile(
             final String name,
-            final ZipFavCommanderDirectoryFile parentDirectory,
-            final ZipFavCommanderFileSystem fileSystem,
+            final FavCommanderZipDirectory parentDirectory,
+            final FavCommanderZipFileSystem fileSystem,
             final ZipEntry zipEntry) {
         super(name, new FavCommanderParentDirectory(parentDirectory, fileSystem), fileSystem);
         this.zipEntry = zipEntry;

@@ -2,7 +2,7 @@ package wf.fav.apps.fc.gui.table;
 
 import wf.fav.apps.fc.config.FavCommanderVisualConfigurationTheme;
 import wf.fav.apps.fc.fs.FavCommanderFile;
-import wf.fav.apps.fc.fs.zip.ZipFavCommanderFileSystem;
+import wf.fav.apps.fc.fs.zip.FavCommanderZipFileSystem;
 import wf.fav.apps.fc.gui.FavCommanderController;
 import wf.fav.apps.fc.sort.FavCommanderFileComparator;
 
@@ -114,7 +114,7 @@ public class FavCommanderTableModel {
         if (file.isDirectory()) {
             setCurrentDirectory(file);
         } else if (file.getName().endsWith(".zip")) {
-            setCurrentDirectory(new ZipFavCommanderFileSystem(file).getRootList().getFirst());
+            setCurrentDirectory(new FavCommanderZipFileSystem(file).getRootList().getFirst());
         }
     }
 

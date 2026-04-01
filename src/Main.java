@@ -1,11 +1,11 @@
 import wf.fav.apps.fc.fs.FavCommanderFile;
-import wf.fav.apps.fc.fs.local.LocalFavCommanderFileSystem;
+import wf.fav.apps.fc.fs.local.FavCommanderLocalFileSystem;
 import wf.fav.apps.fc.sort.FavCommanderFileComparator;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 void main() throws IOException {
-    LocalFavCommanderFileSystem localFileSystem = LocalFavCommanderFileSystem.getLocalFavCommanderFileSystemInstance();
+    FavCommanderLocalFileSystem localFileSystem = FavCommanderLocalFileSystem.getLocalFavCommanderFileSystemInstance();
     List<? extends FavCommanderFile> rootList = localFileSystem.getRootList();
     rootList.forEach(f -> System.out.println(f.getName()));
     List<? extends FavCommanderFile> fileList = rootList.getFirst().getDirectoryFileList();

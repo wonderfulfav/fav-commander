@@ -9,17 +9,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class AbstractLocalFavCommanderFile implements FavCommanderFile {
+public abstract class AbstractFavCommanderLocalFile implements FavCommanderFile {
 
     private final File file;
 
-    public AbstractLocalFavCommanderFile(final File file) {
+    public AbstractFavCommanderLocalFile(final File file) {
         this.file = file.getAbsoluteFile();
     }
 
     @Override
     public FavCommanderFileSystem getFileSystem() {
-        return LocalFavCommanderFileSystem.getLocalFavCommanderFileSystemInstance();
+        return FavCommanderLocalFileSystem.getLocalFavCommanderFileSystemInstance();
     }
 
     @Override
@@ -35,7 +35,7 @@ public abstract class AbstractLocalFavCommanderFile implements FavCommanderFile 
             return null;
         }
 
-        return new FavCommanderParentDirectory(new LocalFavCommanderFile(parentDirectory), getFileSystem());
+        return new FavCommanderParentDirectory(new FavCommanderLocalFile(parentDirectory), getFileSystem());
     }
 
     @Override
@@ -55,7 +55,7 @@ public abstract class AbstractLocalFavCommanderFile implements FavCommanderFile 
         final File[] fileArray = file.listFiles();
 
         if (fileArray != null) {
-            result.addAll(Arrays.stream(fileArray).map(LocalFavCommanderFile::new).toList());
+            result.addAll(Arrays.stream(fileArray).map(FavCommanderLocalFile::new).toList());
         }
 
         return result;

@@ -3,22 +3,22 @@ package wf.fav.apps.fc.fs.zip;
 import wf.fav.apps.fc.fs.FavCommanderFile;
 import wf.fav.apps.fc.fs.FavCommanderFileSystem;
 import wf.fav.apps.fc.fs.FavCommanderParentDirectory;
-import wf.fav.apps.fc.fs.local.AbstractLocalFavCommanderFile;
+import wf.fav.apps.fc.fs.local.AbstractFavCommanderLocalFile;
 
 import java.io.IOException;
 import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-public class ZipFavCommanderFileSystem implements FavCommanderFileSystem {
+public class FavCommanderZipFileSystem implements FavCommanderFileSystem {
 
-    private final ZipFavCommanderDirectoryFile rootDirectory;
+    private final FavCommanderZipDirectory rootDirectory;
 
-    public ZipFavCommanderFileSystem(final FavCommanderFile parentFile) {
-        rootDirectory = new ZipFavCommanderDirectoryFile("", parentFile.getParentDirectory(), parentFile.getFileSystem());
-        final ZipFavCommanderFileSystemBuilder directoryBuilder = new ZipFavCommanderFileSystemBuilder(rootDirectory, this);
+    public FavCommanderZipFileSystem(final FavCommanderFile parentFile) {
+        rootDirectory = new FavCommanderZipDirectory("", parentFile.getParentDirectory(), parentFile.getFileSystem());
+        final FavCommanderZipFileSystemBuilder directoryBuilder = new FavCommanderZipFileSystemBuilder(rootDirectory, this);
 
-        final AbstractLocalFavCommanderFile fsFile = ((AbstractLocalFavCommanderFile) parentFile);
+        final AbstractFavCommanderLocalFile fsFile = ((AbstractFavCommanderLocalFile) parentFile);
         try (final ZipFile zipFile = new ZipFile(fsFile.getFile())) {
             final Enumeration<? extends ZipEntry> entries = zipFile.entries();
 
@@ -30,7 +30,7 @@ public class ZipFavCommanderFileSystem implements FavCommanderFileSystem {
 
                 // find or create the parent directory
                 final String directoryPath = name.substring(0, lastSlash + 1);
-                final ZipFavCommanderDirectoryFile directory = directoryBuilder.getOrCreateDirectory(directoryPath);
+                final FavCommanderZipDirectory directory = directoryBuilder.getOrCreateDirectory(directoryPath);
 
                 if (entry.isDirectory()) {
                     continue;
@@ -38,7 +38,7 @@ public class ZipFavCommanderFileSystem implements FavCommanderFileSystem {
 
                 // create the file
                 final String fileName = (lastSlash < 0) ? name : name.substring(lastSlash + 1);
-                final ZipFavCommanderFile file = new ZipFavCommanderFile(fileName, directory, this, entry);
+                final FavCommanderZipFile file = new FavCommanderZipFile(fileName, directory, this, entry);
 
                 // add the file to the directory
                 directory.addZipFile(file);
@@ -53,27 +53,27 @@ public class ZipFavCommanderFileSystem implements FavCommanderFileSystem {
         return List.of(rootDirectory);
     }
 
-    private static final class ZipFavCommanderFileSystemBuilder {
+    private static final class FavCommanderZipFileSystemBuilder {
 
-        private final HashMap<String, ZipFavCommanderDirectoryFile> directoryMap = new HashMap<>();
-        private final ZipFavCommanderDirectoryFile rootDirectory;
-        private final ZipFavCommanderFileSystem fileSystem;
+        private final HashMap<String, FavCommanderZipDirectory> directoryMap = new HashMap<>();
+        private final FavCommanderZipDirectory rootDirectory;
+        private final FavCommanderZipFileSystem fileSystem;
 
-        public ZipFavCommanderFileSystemBuilder(
-                final ZipFavCommanderDirectoryFile rootDirectory,
-                final ZipFavCommanderFileSystem fileSystem) {
+        public FavCommanderZipFileSystemBuilder(
+                final FavCommanderZipDirectory rootDirectory,
+                final FavCommanderZipFileSystem fileSystem) {
             this.rootDirectory = rootDirectory;
             this.fileSystem = fileSystem;
             directoryMap.put("", rootDirectory);
         }
 
-        public ZipFavCommanderDirectoryFile getOrCreateDirectory(final String directoryPath) {
+        public FavCommanderZipDirectory getOrCreateDirectory(final String directoryPath) {
             if (directoryMap.containsKey(directoryPath)) {
                 return directoryMap.get(directoryPath);
             }
 
             // create directory structure
-            ZipFavCommanderDirectoryFile parentDirectory = rootDirectory;
+            FavCommanderZipDirectory parentDirectory = rootDirectory;
 
             for (int startPath = 0, slashPosition = directoryPath.indexOf('/'); slashPosition > 0;
                  startPath = slashPosition + 1, slashPosition = directoryPath.indexOf('/', startPath)) {
@@ -85,8 +85,8 @@ public class ZipFavCommanderFileSystem implements FavCommanderFileSystem {
                 }
 
                 final String currentDirectoryName = currentDirectoryPath.substring(startPath, slashPosition);
-                final ZipFavCommanderDirectoryFile currentDirectory =
-                        new ZipFavCommanderDirectoryFile(currentDirectoryName, new FavCommanderParentDirectory(parentDirectory, fileSystem), fileSystem);
+                final FavCommanderZipDirectory currentDirectory =
+                        new FavCommanderZipDirectory(currentDirectoryName, new FavCommanderParentDirectory(parentDirectory, fileSystem), fileSystem);
                 directoryMap.put(currentDirectoryPath, currentDirectory);
                 parentDirectory.addZipFile(currentDirectory);
                 parentDirectory = currentDirectory;
