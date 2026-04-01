@@ -35,7 +35,7 @@ public class ParentFavCommanderFile implements FavCommanderFile {
     }
 
     @Override
-    public FavCommanderFile getParentDirectory() {
+    public ParentFavCommanderFile getParentDirectory() {
         throw new RuntimeException("This is a Parent directory!");
     }
 

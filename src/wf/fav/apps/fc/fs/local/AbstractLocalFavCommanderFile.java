@@ -28,7 +28,7 @@ public abstract class AbstractLocalFavCommanderFile implements FavCommanderFile 
     }
 
     @Override
-    public FavCommanderFile getParentDirectory() {
+    public ParentFavCommanderFile getParentDirectory() {
         final File parentDirectory = file.getParentFile();
 
         if (parentDirectory == null) {

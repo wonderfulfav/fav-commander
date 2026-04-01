@@ -10,7 +10,7 @@ public class ZipFavCommanderDirectoryFile extends AbstractZipFavCommanderFile {
 
     private final List<FavCommanderFile> fileList = new ArrayList<>();
 
-    public ZipFavCommanderDirectoryFile(final String name, final FavCommanderFile parentDirectory, final ZipFavCommanderFileSystem fileSystem) {
+    public ZipFavCommanderDirectoryFile(final String name, final ParentFavCommanderFile parentDirectory, final ZipFavCommanderFileSystem fileSystem) {
         super(name, parentDirectory, fileSystem);
         fileList.add(new ParentFavCommanderFile(parentDirectory, fileSystem));
     }

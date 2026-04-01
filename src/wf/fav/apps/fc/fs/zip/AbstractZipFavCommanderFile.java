@@ -1,16 +1,17 @@
 package wf.fav.apps.fc.fs.zip;
 
 import wf.fav.apps.fc.fs.FavCommanderFile;
+import wf.fav.apps.fc.fs.ParentFavCommanderFile;
 
 public abstract class AbstractZipFavCommanderFile implements FavCommanderFile {
 
     final String name;
-    private final FavCommanderFile parentDirectory;
+    private final ParentFavCommanderFile parentDirectory;
     private final ZipFavCommanderFileSystem fileSystem;
 
     public AbstractZipFavCommanderFile(
             final String name,
-            final FavCommanderFile parentDirectory,
+            final ParentFavCommanderFile parentDirectory,
             final ZipFavCommanderFileSystem fileSystem) {
         this.name = name;
         this.parentDirectory = parentDirectory;
@@ -28,7 +29,7 @@ public abstract class AbstractZipFavCommanderFile implements FavCommanderFile {
     }
 
     @Override
-    public FavCommanderFile getParentDirectory() {
+    public ParentFavCommanderFile getParentDirectory() {
         return parentDirectory;
     }
 

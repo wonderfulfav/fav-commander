@@ -8,7 +8,7 @@ public interface FavCommanderFile {
 
     boolean isDirectory();
 
-    FavCommanderFile getParentDirectory();
+    ParentFavCommanderFile getParentDirectory();
 
     FavCommanderFileSystem getFileSystem();
 
