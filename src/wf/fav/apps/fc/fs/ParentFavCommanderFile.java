@@ -29,7 +29,6 @@ public class ParentFavCommanderFile implements FavCommanderFile {
     @Override
     public List<? extends FavCommanderFile> listDirectoryFileList() {
         return parentDirectory.listDirectoryFileList();
-//        throw new RuntimeException("This is a Parent directory!");
     }
 
     @Override
@@ -39,7 +38,7 @@ public class ParentFavCommanderFile implements FavCommanderFile {
 
     @Override
     public FavCommanderFile getParentDirectory() {
-        return parentDirectory;
+        throw new RuntimeException("This is a Parent directory!");
     }
 
     @Override
