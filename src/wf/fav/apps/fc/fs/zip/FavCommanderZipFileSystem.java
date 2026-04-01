@@ -12,10 +12,10 @@ import java.util.zip.ZipFile;
 
 public class FavCommanderZipFileSystem implements FavCommanderFileSystem {
 
-    private final FavCommanderZipDirectory rootDirectory;
+    private final FavCommanderRootZipDirectory rootDirectory;
 
     public FavCommanderZipFileSystem(final FavCommanderFile parentFile) {
-        rootDirectory = new FavCommanderZipDirectory("", parentFile.getParentDirectory(), parentFile.getFileSystem());
+        rootDirectory = new FavCommanderRootZipDirectory("", parentFile.getParentDirectory(), parentFile.getFileSystem());
         final FavCommanderZipFileSystemBuilder directoryBuilder = new FavCommanderZipFileSystemBuilder(rootDirectory, this);
 
         final AbstractFavCommanderLocalFile fsFile = ((AbstractFavCommanderLocalFile) parentFile);
@@ -30,7 +30,7 @@ public class FavCommanderZipFileSystem implements FavCommanderFileSystem {
 
                 // find or create the parent directory
                 final String directoryPath = name.substring(0, lastSlash + 1);
-                final FavCommanderZipDirectory directory = directoryBuilder.getOrCreateDirectory(directoryPath);
+                final AbstractFavCommanderZipDirectory directory = directoryBuilder.getOrCreateDirectory(directoryPath);
 
                 if (entry.isDirectory()) {
                     continue;
@@ -55,25 +55,25 @@ public class FavCommanderZipFileSystem implements FavCommanderFileSystem {
 
     private static final class FavCommanderZipFileSystemBuilder {
 
-        private final HashMap<String, FavCommanderZipDirectory> directoryMap = new HashMap<>();
-        private final FavCommanderZipDirectory rootDirectory;
+        private final HashMap<String, AbstractFavCommanderZipDirectory> directoryMap = new HashMap<>();
+        private final FavCommanderRootZipDirectory rootDirectory;
         private final FavCommanderZipFileSystem fileSystem;
 
         public FavCommanderZipFileSystemBuilder(
-                final FavCommanderZipDirectory rootDirectory,
+                final FavCommanderRootZipDirectory rootDirectory,
                 final FavCommanderZipFileSystem fileSystem) {
             this.rootDirectory = rootDirectory;
             this.fileSystem = fileSystem;
             directoryMap.put("", rootDirectory);
         }
 
-        public FavCommanderZipDirectory getOrCreateDirectory(final String directoryPath) {
+        public AbstractFavCommanderZipDirectory getOrCreateDirectory(final String directoryPath) {
             if (directoryMap.containsKey(directoryPath)) {
                 return directoryMap.get(directoryPath);
             }
 
             // create directory structure
-            FavCommanderZipDirectory parentDirectory = rootDirectory;
+            AbstractFavCommanderZipDirectory parentDirectory = rootDirectory;
 
             for (int startPath = 0, slashPosition = directoryPath.indexOf('/'); slashPosition > 0;
                  startPath = slashPosition + 1, slashPosition = directoryPath.indexOf('/', startPath)) {

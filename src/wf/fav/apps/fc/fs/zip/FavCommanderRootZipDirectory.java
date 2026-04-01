@@ -1,13 +1,14 @@
 package wf.fav.apps.fc.fs.zip;
 
+import wf.fav.apps.fc.fs.FavCommanderFileSystem;
 import wf.fav.apps.fc.fs.FavCommanderParentDirectory;
 
-public class FavCommanderZipDirectory extends AbstractFavCommanderZipDirectory {
+public class FavCommanderRootZipDirectory extends AbstractFavCommanderZipDirectory {
 
-    public FavCommanderZipDirectory(
+    public FavCommanderRootZipDirectory(
             final String name,
             final FavCommanderParentDirectory parentDirectory,
-            final FavCommanderZipFileSystem fileSystem) {
+            final FavCommanderFileSystem fileSystem) {
         super(name, parentDirectory, fileSystem);
     }
 

@@ -12,7 +12,7 @@ public class FavCommanderZipFile extends AbstractFavCommanderZipFile {
 
     public FavCommanderZipFile(
             final String name,
-            final FavCommanderZipDirectory parentDirectory,
+            final AbstractFavCommanderZipDirectory parentDirectory,
             final FavCommanderZipFileSystem fileSystem,
             final ZipEntry zipEntry) {
         super(name, new FavCommanderParentDirectory(parentDirectory, fileSystem), fileSystem);
