@@ -7,7 +7,7 @@ import java.util.Comparator;
 
 public class FavCommanderFileComparator {
 
-    public static final Comparator<FavCommanderFile> PARENT_DIRECTORY_LOCAL
+    private static final Comparator<FavCommanderFile> PARENT_DIRECTORY_FIRST_COMPARATOR
             = (file1, file2) -> {
         if (file1 instanceof FavCommanderParentDirectory) {
             return -1;
@@ -20,15 +20,16 @@ public class FavCommanderFileComparator {
         return 0;
     };
 
-    private static final Comparator<FavCommanderFile> DIRECTORY_LOCAL =
+    private static final Comparator<FavCommanderFile> DIRECTORY_BEFORE_FILES_COMPARATOR =
             (a, b) -> -Boolean.compare(a.isDirectory(), b.isDirectory());
 
-    private static final Comparator<FavCommanderFile> NAME_LOCAL =
+    private static final Comparator<FavCommanderFile> NAME_ONLY_COMPARATOR =
             (a, b) -> a.getName().compareToIgnoreCase(b.getName());
 
+    private static final Comparator<FavCommanderFile> GENERAL_COMPARATOR =
+            PARENT_DIRECTORY_FIRST_COMPARATOR.thenComparing(DIRECTORY_BEFORE_FILES_COMPARATOR);
+
     public static final Comparator<FavCommanderFile> NAME =
-            PARENT_DIRECTORY_LOCAL.thenComparing(
-                    DIRECTORY_LOCAL.thenComparing(
-                            NAME_LOCAL));
+            GENERAL_COMPARATOR.thenComparing(NAME_ONLY_COMPARATOR);
 
 }
