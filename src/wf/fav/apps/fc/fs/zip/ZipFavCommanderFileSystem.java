@@ -2,7 +2,7 @@ package wf.fav.apps.fc.fs.zip;
 
 import wf.fav.apps.fc.fs.FavCommanderFile;
 import wf.fav.apps.fc.fs.FavCommanderFileSystem;
-import wf.fav.apps.fc.fs.ParentFavCommanderFile;
+import wf.fav.apps.fc.fs.FavCommanderParentDirectory;
 import wf.fav.apps.fc.fs.local.AbstractLocalFavCommanderFile;
 
 import java.io.IOException;
@@ -86,7 +86,7 @@ public class ZipFavCommanderFileSystem implements FavCommanderFileSystem {
 
                 final String currentDirectoryName = currentDirectoryPath.substring(startPath, slashPosition);
                 final ZipFavCommanderDirectoryFile currentDirectory =
-                        new ZipFavCommanderDirectoryFile(currentDirectoryName, new ParentFavCommanderFile(parentDirectory, fileSystem), fileSystem);
+                        new ZipFavCommanderDirectoryFile(currentDirectoryName, new FavCommanderParentDirectory(parentDirectory, fileSystem), fileSystem);
                 directoryMap.put(currentDirectoryPath, currentDirectory);
                 parentDirectory.addZipFile(currentDirectory);
                 parentDirectory = currentDirectory;

@@ -2,12 +2,12 @@ package wf.fav.apps.fc.fs;
 
 import java.util.List;
 
-public class ParentFavCommanderFile implements FavCommanderFile {
+public class FavCommanderParentDirectory implements FavCommanderFile {
 
     private final FavCommanderFile parentDirectory;
     private final FavCommanderFileSystem fileSystem;
 
-    public ParentFavCommanderFile(
+    public FavCommanderParentDirectory(
             final FavCommanderFile parentDirectory,
             final FavCommanderFileSystem fileSystem) {
         this.parentDirectory = parentDirectory;
@@ -35,7 +35,7 @@ public class ParentFavCommanderFile implements FavCommanderFile {
     }
 
     @Override
-    public ParentFavCommanderFile getParentDirectory() {
+    public FavCommanderParentDirectory getParentDirectory() {
         throw new RuntimeException("This is a Parent directory!");
     }
 

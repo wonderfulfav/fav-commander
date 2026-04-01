@@ -1,7 +1,7 @@
 package wf.fav.apps.fc.fs.zip;
 
 import wf.fav.apps.fc.fs.FavCommanderFile;
-import wf.fav.apps.fc.fs.ParentFavCommanderFile;
+import wf.fav.apps.fc.fs.FavCommanderParentDirectory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ public class ZipFavCommanderDirectoryFile extends AbstractZipFavCommanderFile {
 
     public ZipFavCommanderDirectoryFile(
             final String name,
-            final ParentFavCommanderFile parentDirectory,
+            final FavCommanderParentDirectory parentDirectory,
             final ZipFavCommanderFileSystem fileSystem) {
         super(name, parentDirectory, fileSystem);
         fileList.add(parentDirectory);

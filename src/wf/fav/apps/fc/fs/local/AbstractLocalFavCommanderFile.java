@@ -2,7 +2,7 @@ package wf.fav.apps.fc.fs.local;
 
 import wf.fav.apps.fc.fs.FavCommanderFile;
 import wf.fav.apps.fc.fs.FavCommanderFileSystem;
-import wf.fav.apps.fc.fs.ParentFavCommanderFile;
+import wf.fav.apps.fc.fs.FavCommanderParentDirectory;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -28,14 +28,14 @@ public abstract class AbstractLocalFavCommanderFile implements FavCommanderFile 
     }
 
     @Override
-    public ParentFavCommanderFile getParentDirectory() {
+    public FavCommanderParentDirectory getParentDirectory() {
         final File parentDirectory = file.getParentFile();
 
         if (parentDirectory == null) {
             return null;
         }
 
-        return new ParentFavCommanderFile(new LocalFavCommanderFile(parentDirectory), getFileSystem());
+        return new FavCommanderParentDirectory(new LocalFavCommanderFile(parentDirectory), getFileSystem());
     }
 
     @Override

@@ -1,7 +1,7 @@
 package wf.fav.apps.fc.sort;
 
 import wf.fav.apps.fc.fs.FavCommanderFile;
-import wf.fav.apps.fc.fs.ParentFavCommanderFile;
+import wf.fav.apps.fc.fs.FavCommanderParentDirectory;
 
 import java.util.Comparator;
 
@@ -9,11 +9,11 @@ public class FavCommanderFileComparator {
 
     public static final Comparator<FavCommanderFile> PARENT_DIRECTORY_LOCAL
             = (file1, file2) -> {
-        if (file1 instanceof ParentFavCommanderFile) {
+        if (file1 instanceof FavCommanderParentDirectory) {
             return -1;
         }
 
-        if (file2 instanceof ParentFavCommanderFile) {
+        if (file2 instanceof FavCommanderParentDirectory) {
             return 1;
         }
 
