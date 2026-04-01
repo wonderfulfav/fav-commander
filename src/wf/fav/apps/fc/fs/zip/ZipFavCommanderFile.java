@@ -24,7 +24,7 @@ public class ZipFavCommanderFile extends AbstractZipFavCommanderFile {
     }
 
     @Override
-    public List<? extends FavCommanderFile> listDirectoryFileList() {
+    public List<? extends FavCommanderFile> getDirectoryFileList() {
          throw new RuntimeException("Not a ZIP directory: " + getName());
     }
 

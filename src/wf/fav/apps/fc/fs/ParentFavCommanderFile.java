@@ -25,8 +25,8 @@ public class ParentFavCommanderFile implements FavCommanderFile {
     }
 
     @Override
-    public List<? extends FavCommanderFile> listDirectoryFileList() {
-        return parentDirectory.listDirectoryFileList();
+    public List<? extends FavCommanderFile> getDirectoryFileList() {
+        return parentDirectory.getDirectoryFileList();
     }
 
     @Override

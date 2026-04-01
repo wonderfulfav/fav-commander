@@ -39,7 +39,7 @@ public abstract class AbstractLocalFavCommanderFile implements FavCommanderFile 
     }
 
     @Override
-    public List<? extends FavCommanderFile> listDirectoryFileList() {
+    public List<? extends FavCommanderFile> getDirectoryFileList() {
         if (!isDirectory()) {
             throw new RuntimeException("Not a Directory: " + getName());
         }

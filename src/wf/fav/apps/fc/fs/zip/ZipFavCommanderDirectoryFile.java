@@ -21,7 +21,7 @@ public class ZipFavCommanderDirectoryFile extends AbstractZipFavCommanderFile {
     }
 
     @Override
-    public List<? extends FavCommanderFile> listDirectoryFileList() {
+    public List<? extends FavCommanderFile> getDirectoryFileList() {
         return fileList;
     }
 

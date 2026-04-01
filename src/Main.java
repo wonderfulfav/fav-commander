@@ -8,7 +8,7 @@ void main() throws IOException {
     LocalFavCommanderFileSystem localFileSystem = LocalFavCommanderFileSystem.getLocalFavCommanderFileSystemInstance();
     List<? extends FavCommanderFile> rootList = localFileSystem.getRootList();
     rootList.forEach(f -> System.out.println(f.getName()));
-    List<? extends FavCommanderFile> fileList = rootList.getFirst().listDirectoryFileList();
+    List<? extends FavCommanderFile> fileList = rootList.getFirst().getDirectoryFileList();
     fileList.sort(FavCommanderFileComparator.NAME);
     fileList.forEach(f -> System.out.println(f.getName()));
 

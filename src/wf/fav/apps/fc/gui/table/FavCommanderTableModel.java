@@ -56,7 +56,7 @@ public class FavCommanderTableModel {
 
     public void setCurrentDirectory(final FavCommanderFile currentDirectory) {
         this.currentDirectory = currentDirectory;
-        fileList = currentDirectory.listDirectoryFileList();
+        fileList = currentDirectory.getDirectoryFileList();
         fileList.sort(FavCommanderFileComparator.NAME);
         selectedSet.clear();
         cursorIndex = 0;

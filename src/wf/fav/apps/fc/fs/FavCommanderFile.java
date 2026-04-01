@@ -12,7 +12,7 @@ public interface FavCommanderFile {
 
     FavCommanderFileSystem getFileSystem();
 
-    List<? extends FavCommanderFile> listDirectoryFileList();
+    List<? extends FavCommanderFile> getDirectoryFileList();
 
     long getFileSize();
 
