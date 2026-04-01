@@ -15,7 +15,7 @@ public class ZipFavCommanderFileSystem implements FavCommanderFileSystem {
 
     public ZipFavCommanderFileSystem(final FavCommanderFile parentFile) {
         rootDirectory = new ZipFavCommanderDirectoryFile("", parentFile.getParentDirectory(), this);
-        final ZipFavCommanderFileSystemBuilder dirs = new ZipFavCommanderFileSystemBuilder(rootDirectory, this);
+        final ZipFavCommanderFileSystemBuilder directoryBuilder = new ZipFavCommanderFileSystemBuilder(rootDirectory, this);
 
         final AbstractLocalFavCommanderFile fsFile = ((AbstractLocalFavCommanderFile) parentFile);
         try (final ZipFile zipFile = new ZipFile(fsFile.getFile())) {
@@ -29,7 +29,7 @@ public class ZipFavCommanderFileSystem implements FavCommanderFileSystem {
 
                 // find or create the parent directory
                 final String directoryPath = name.substring(0, lastSlash + 1);
-                final ZipFavCommanderDirectoryFile directory = dirs.getOrCreateDirectory(directoryPath);
+                final ZipFavCommanderDirectoryFile directory = directoryBuilder.getOrCreateDirectory(directoryPath);
 
                 if (entry.isDirectory()) {
                     continue;
