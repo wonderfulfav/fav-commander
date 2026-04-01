@@ -8,9 +8,10 @@ public abstract class AbstractZipFavCommanderFile implements FavCommanderFile {
     private final FavCommanderFile parentDirectory;
     private final ZipFavCommanderFileSystem fileSystem;
 
-    public AbstractZipFavCommanderFile(final String name,
-                                       final FavCommanderFile parentDirectory,
-                                       final ZipFavCommanderFileSystem fileSystem) {
+    public AbstractZipFavCommanderFile(
+            final String name,
+            final FavCommanderFile parentDirectory,
+            final ZipFavCommanderFileSystem fileSystem) {
         this.name = name;
         this.parentDirectory = parentDirectory;
         this.fileSystem = fileSystem;
