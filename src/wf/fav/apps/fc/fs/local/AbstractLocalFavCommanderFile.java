@@ -2,6 +2,7 @@ package wf.fav.apps.fc.fs.local;
 
 import wf.fav.apps.fc.fs.FavCommanderFile;
 import wf.fav.apps.fc.fs.FavCommanderFileSystem;
+import wf.fav.apps.fc.fs.ParentFavCommanderFile;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public abstract class AbstractLocalFavCommanderFile implements FavCommanderFile 
             return null;
         }
 
-        return new LocalFavCommanderFile(parentDirectory);
+        return new ParentFavCommanderFile(new LocalFavCommanderFile(parentDirectory), getFileSystem());
     }
 
     @Override
@@ -50,7 +51,15 @@ public abstract class AbstractLocalFavCommanderFile implements FavCommanderFile 
             return Collections.emptyList();
         }
 
-        return new ArrayList<>(Arrays.stream(fileList).map(LocalFavCommanderFile::new).toList());
+        List<LocalFavCommanderFile> list = Arrays.stream(fileList).map(LocalFavCommanderFile::new).toList();
+        ArrayList<FavCommanderFile> localFavCommanderFiles = new ArrayList<>(list);
+        FavCommanderFile parentDirectory = getParentDirectory();
+
+        if (parentDirectory != null) {
+            localFavCommanderFiles.add(parentDirectory);
+        }
+
+        return localFavCommanderFiles;
     }
 
     public long getFileSize() {
