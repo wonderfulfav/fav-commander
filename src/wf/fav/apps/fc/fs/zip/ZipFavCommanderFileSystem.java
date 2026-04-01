@@ -15,7 +15,7 @@ public class ZipFavCommanderFileSystem implements FavCommanderFileSystem {
     private final ZipFavCommanderDirectoryFile rootDirectory;
 
     public ZipFavCommanderFileSystem(final FavCommanderFile parentFile) {
-        rootDirectory = new ZipFavCommanderDirectoryFile("", parentFile.getParentDirectory(), this);
+        rootDirectory = new ZipFavCommanderDirectoryFile("", parentFile.getParentDirectory(), parentFile.getFileSystem());
         final ZipFavCommanderFileSystemBuilder directoryBuilder = new ZipFavCommanderFileSystemBuilder(rootDirectory, this);
 
         final AbstractLocalFavCommanderFile fsFile = ((AbstractLocalFavCommanderFile) parentFile);
