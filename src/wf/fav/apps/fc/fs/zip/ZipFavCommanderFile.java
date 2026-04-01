@@ -9,7 +9,11 @@ public class ZipFavCommanderFile extends AbstractZipFavCommanderFile {
 
     final ZipEntry zipEntry;
 
-    public ZipFavCommanderFile(final String name, final ZipFavCommanderDirectoryFile parentDirectory, final ZipFavCommanderFileSystem fileSystem, final ZipEntry zipEntry) {
+    public ZipFavCommanderFile(
+            final String name,
+            final ZipFavCommanderDirectoryFile parentDirectory,
+            final ZipFavCommanderFileSystem fileSystem,
+            final ZipEntry zipEntry) {
         super(name, parentDirectory, fileSystem);
         this.zipEntry = zipEntry;
     }
