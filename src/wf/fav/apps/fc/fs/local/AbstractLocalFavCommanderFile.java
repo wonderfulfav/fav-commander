@@ -7,7 +7,6 @@ import wf.fav.apps.fc.fs.ParentFavCommanderFile;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public abstract class AbstractLocalFavCommanderFile implements FavCommanderFile {
@@ -45,21 +44,21 @@ public abstract class AbstractLocalFavCommanderFile implements FavCommanderFile 
             throw new RuntimeException("Not a Directory: " + getName());
         }
 
-        final File[] fileList = file.listFiles();
+        final ArrayList<FavCommanderFile> result = new ArrayList<>();
 
-        if (fileList == null) {
-            return Collections.emptyList();
-        }
-
-        List<LocalFavCommanderFile> list = Arrays.stream(fileList).map(LocalFavCommanderFile::new).toList();
-        ArrayList<FavCommanderFile> localFavCommanderFiles = new ArrayList<>(list);
-        FavCommanderFile parentDirectory = getParentDirectory();
+        final FavCommanderFile parentDirectory = getParentDirectory();
 
         if (parentDirectory != null) {
-            localFavCommanderFiles.add(parentDirectory);
+            result.add(parentDirectory);
         }
 
-        return localFavCommanderFiles;
+        final File[] fileArray = file.listFiles();
+
+        if (fileArray != null) {
+            result.addAll(Arrays.stream(fileArray).map(LocalFavCommanderFile::new).toList());
+        }
+
+        return result;
     }
 
     public long getFileSize() {
