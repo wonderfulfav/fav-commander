@@ -22,6 +22,7 @@ public class FavCommanderTableModel {
     private FavCommanderFile currentDirectory;
     private List<? extends FavCommanderFile> fileList;
     private int cursorIndex;
+    private int cursorOffset;
     private boolean active;
 
     public FavCommanderTableModel(final FavCommanderTableView view) {
@@ -38,6 +39,10 @@ public class FavCommanderTableModel {
 
     public int getCursorIndex() {
         return cursorIndex;
+    }
+
+    public int getCursorOffset() {
+        return cursorOffset;
     }
 
     public int getFileListSize() {
@@ -62,6 +67,7 @@ public class FavCommanderTableModel {
         fileList.sort(FavCommanderFileComparator.NAME);
         selectedSet.clear();
         cursorIndex = 0;
+        cursorOffset = 0;
         viewRepaint();
     }
 
@@ -70,10 +76,17 @@ public class FavCommanderTableModel {
             return;
         }
 
-        if (cursorIndex > 0) {
-            cursorIndex--;
-            viewRepaint();
+        if (cursorIndex <= 0) {
+            return;
         }
+
+        cursorIndex--;
+
+        if (cursorIndex < cursorOffset) {
+            cursorOffset = cursorIndex;
+        }
+
+        viewRepaint();
     }
 
     public void cursorDown() {
@@ -81,10 +94,19 @@ public class FavCommanderTableModel {
             return;
         }
 
-        if (cursorIndex < fileList.size() - 1) {
-            cursorIndex++;
-            viewRepaint();
+        if (cursorIndex >= fileList.size() - 1) {
+            return;
         }
+
+        cursorIndex++;
+
+        final int pageSize = view.getHeight() / LINE_HEIGHT;
+
+        if (cursorIndex > cursorOffset + pageSize) {
+            cursorOffset = cursorIndex - pageSize;
+        }
+
+        viewRepaint();
     }
 
     public void cursorHome() {

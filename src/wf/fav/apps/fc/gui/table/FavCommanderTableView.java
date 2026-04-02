@@ -23,7 +23,7 @@ public class FavCommanderTableView extends JComponent {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                model.setCursorIndex(e.getY() / LINE_HEIGHT);
+                model.setCursorIndex(e.getY() / LINE_HEIGHT + model.getCursorOffset());
             }
         });
     }
@@ -54,19 +54,24 @@ public class FavCommanderTableView extends JComponent {
     }
 
     public void paintFile(final Graphics g, final int i) {
-        final FavCommanderFile f = model.getFile(i);
+        final FavCommanderFile f = model.getFile(i + model.getCursorOffset());
+        final int y = i * LINE_HEIGHT + TEXT_OFFSET;
 
         if (f.isDirectory()) {
-            g.drawString("<DIR>", TAB_OFFSET, i * LINE_HEIGHT + TEXT_OFFSET);
+            g.drawString("<DIR>", TAB_OFFSET, y);
         } else {
-            g.drawString(FavCommanderFormatUtil.humanReadableSize(f.getFileSize()), TAB_OFFSET, i * LINE_HEIGHT + TEXT_OFFSET);
+            g.drawString(FavCommanderFormatUtil.humanReadableSize(f.getFileSize()), TAB_OFFSET, y);
         }
 
-        g.drawString(f.getName(), LEFT_MARGIN, i * LINE_HEIGHT + TEXT_OFFSET);
+        g.drawString(f.getName(), LEFT_MARGIN, y);
     }
 
     public void paintFileList(final Graphics g) {
-        for (int i = 0; i < model.getFileListSize(); i++) {
+        final int pageSize = getHeight() / LINE_HEIGHT + 1;
+        final int fileCount = model.getFileListSize() - model.getCursorOffset();
+        final int count = Math.min(pageSize, fileCount);
+
+        for (int i = 0; i < count; i++) {
             g.setColor(model.selectedSetContains(model.getFile(i)) ?
                     theme.getHighlightedColor() : theme.getForegroundColor());
             paintFile(g, i);
@@ -74,7 +79,7 @@ public class FavCommanderTableView extends JComponent {
     }
 
     public void paintCursorFile(final Graphics g) {
-        final int cursorIndex = model.getCursorIndex();
+        final int cursorIndex = model.getCursorIndex() - model.getCursorOffset();
         g.setColor(theme.getCursorBackgroundColor());
         g.fillRect(0, cursorIndex * LINE_HEIGHT, getWidth(), LINE_HEIGHT);
         g.setColor(model.selectedSetContains(model.getFile(cursorIndex)) ?
