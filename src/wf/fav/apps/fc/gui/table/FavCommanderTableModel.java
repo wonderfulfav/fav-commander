@@ -10,6 +10,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static wf.fav.apps.fc.config.FavCommanderVisualConfigurationFontSize.LINE_HEIGHT;
+
 public class FavCommanderTableModel {
 
     private final FavCommanderTableView view;
@@ -75,6 +77,55 @@ public class FavCommanderTableModel {
             cursorIndex++;
             viewRepaint();
         }
+    }
+
+    public void cursorHome() {
+        if (fileList == null) {
+            return;
+        }
+
+        cursorIndex = 0;
+        viewRepaint();
+    }
+
+
+    public void cursorEnd() {
+        if (fileList == null) {
+            return;
+        }
+
+        cursorIndex = fileList.size() - 1;
+        viewRepaint();
+    }
+
+    public void cursorPageUp() {
+        if (fileList == null) {
+            return;
+        }
+
+        final int jumpSize = view.getHeight() / LINE_HEIGHT;
+        cursorIndex -= jumpSize;
+
+        if (cursorIndex < 0) {
+            cursorIndex = 0;
+        }
+
+        viewRepaint();
+    }
+
+    public void cursorPageDown() {
+        if (fileList == null) {
+            return;
+        }
+
+        final int jumpSize = view.getHeight() / LINE_HEIGHT;
+        cursorIndex += jumpSize;
+
+        if (cursorIndex >= fileList.size() - 1) {
+            cursorIndex = fileList.size() - 1;
+        }
+
+        viewRepaint();
     }
 
     public void setCursorIndex(final int index) {

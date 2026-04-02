@@ -51,6 +51,14 @@ public class FavCommanderController {
 
             case VK_INSERT -> activePanelModel.markFile();
 
+            case VK_HOME -> activePanelModel.cursorHome();
+
+            case VK_END -> activePanelModel.cursorEnd();
+
+            case VK_PAGE_UP -> activePanelModel.cursorPageUp();
+
+            case VK_PAGE_DOWN -> activePanelModel.cursorPageDown();
+
             case VK_RIGHT, VK_ENTER -> activePanelModel.openFileOrDirectory();
 
             case VK_LEFT, VK_BACK_SPACE -> activePanelModel.goToParentDirectory();
