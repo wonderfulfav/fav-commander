@@ -100,6 +100,10 @@ public class FavCommanderTableModel {
 
         cursorIndex++;
 
+        checkCursorEnd();
+    }
+
+    public void checkCursorEnd() {
         final int pageSize = view.getHeight() / LINE_HEIGHT;
 
         if (cursorIndex > cursorOffset + pageSize) {
@@ -120,14 +124,14 @@ public class FavCommanderTableModel {
         viewRepaint();
     }
 
-
     public void cursorEnd() {
         if (isFileListEmpty()) {
             return;
         }
 
         cursorIndex = fileList.size() - 1;
-        viewRepaint();
+
+        checkCursorEnd();
     }
 
     public void cursorPageUp() {
