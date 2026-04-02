@@ -45,19 +45,19 @@ public class FavCommanderController {
         switch (keyCode) {
             case VK_ESCAPE -> System.exit(0);
 
-            case VK_UP -> activePanelModel.cursorUp();
+            case VK_UP -> activePanelModel.moveCursorUp();
 
-            case VK_DOWN -> activePanelModel.cursorDown();
+            case VK_DOWN -> activePanelModel.moveCursorDown();
 
             case VK_INSERT -> activePanelModel.markFile();
 
-            case VK_HOME -> activePanelModel.cursorHome();
+            case VK_HOME -> activePanelModel.moveCursorHome();
 
-            case VK_END -> activePanelModel.cursorEnd();
+            case VK_END -> activePanelModel.moveCursorEnd();
 
-            case VK_PAGE_UP -> activePanelModel.cursorPageUp();
+            case VK_PAGE_UP -> activePanelModel.moveCursorPageUp();
 
-            case VK_PAGE_DOWN -> activePanelModel.cursorPageDown();
+            case VK_PAGE_DOWN -> activePanelModel.moveCursorPageDown();
 
             case VK_RIGHT, VK_ENTER -> activePanelModel.openFileOrDirectory();
 

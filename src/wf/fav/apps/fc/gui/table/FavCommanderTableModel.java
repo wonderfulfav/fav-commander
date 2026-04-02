@@ -71,7 +71,7 @@ public class FavCommanderTableModel {
         viewRepaint();
     }
 
-    public void cursorUp() {
+    public void moveCursorUp() {
         if (isFileListEmpty()) {
             return;
         }
@@ -93,7 +93,7 @@ public class FavCommanderTableModel {
         viewRepaint();
     }
 
-    public void cursorDown() {
+    public void moveCursorDown() {
         if (isFileListEmpty()) {
             return;
         }
@@ -117,7 +117,7 @@ public class FavCommanderTableModel {
         viewRepaint();
     }
 
-    public void cursorHome() {
+    public void moveCursorHome() {
         if (isFileListEmpty()) {
             return;
         }
@@ -128,7 +128,7 @@ public class FavCommanderTableModel {
         viewRepaint();
     }
 
-    public void cursorEnd() {
+    public void moveCursorEnd() {
         if (isFileListEmpty()) {
             return;
         }
@@ -138,7 +138,7 @@ public class FavCommanderTableModel {
         checkCursorEnd();
     }
 
-    public void cursorPageUp() {
+    public void moveCursorPageUp() {
         if (isFileListEmpty()) {
             return;
         }
@@ -153,7 +153,7 @@ public class FavCommanderTableModel {
         checkCursorStart();
     }
 
-    public void cursorPageDown() {
+    public void moveCursorPageDown() {
         if (isFileListEmpty()) {
             return;
         }
@@ -191,7 +191,7 @@ public class FavCommanderTableModel {
             selectedSet.add(selectedFile);
         }
 
-        cursorDown();
+        moveCursorDown();
     }
 
     public void openFileOrDirectory() {
