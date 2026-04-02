@@ -66,6 +66,10 @@ public class FavCommanderTableModel {
     }
 
     public void cursorUp() {
+        if (isFileListEmpty()) {
+            return;
+        }
+
         if (cursorIndex > 0) {
             cursorIndex--;
             viewRepaint();
@@ -73,14 +77,18 @@ public class FavCommanderTableModel {
     }
 
     public void cursorDown() {
-        if (fileList != null && cursorIndex < fileList.size() - 1) {
+        if (isFileListEmpty()) {
+            return;
+        }
+
+        if (cursorIndex < fileList.size() - 1) {
             cursorIndex++;
             viewRepaint();
         }
     }
 
     public void cursorHome() {
-        if (fileList == null) {
+        if (isFileListEmpty()) {
             return;
         }
 
@@ -90,7 +98,7 @@ public class FavCommanderTableModel {
 
 
     public void cursorEnd() {
-        if (fileList == null) {
+        if (isFileListEmpty()) {
             return;
         }
 
@@ -99,7 +107,7 @@ public class FavCommanderTableModel {
     }
 
     public void cursorPageUp() {
-        if (fileList == null) {
+        if (isFileListEmpty()) {
             return;
         }
 
@@ -114,7 +122,7 @@ public class FavCommanderTableModel {
     }
 
     public void cursorPageDown() {
-        if (fileList == null) {
+        if (isFileListEmpty()) {
             return;
         }
 
