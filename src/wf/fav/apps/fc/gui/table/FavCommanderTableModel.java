@@ -2,10 +2,12 @@ package wf.fav.apps.fc.gui.table;
 
 import wf.fav.apps.fc.config.FavCommanderVisualConfigurationTheme;
 import wf.fav.apps.fc.fs.FavCommanderFile;
+import wf.fav.apps.fc.fs.local.AbstractFavCommanderLocalFile;
 import wf.fav.apps.fc.fs.zip.FavCommanderZipFileSystem;
 import wf.fav.apps.fc.gui.FavCommanderController;
 import wf.fav.apps.fc.sort.FavCommanderFileComparator;
 
+import javax.swing.JLabel;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -18,6 +20,7 @@ public class FavCommanderTableModel {
     private final Set<FavCommanderFile> selectedSet = new HashSet<>();
 
     private FavCommanderController controller;
+    private JLabel topPanel;
 
     private FavCommanderFile currentDirectory;
     private List<? extends FavCommanderFile> fileList;
@@ -31,6 +34,10 @@ public class FavCommanderTableModel {
 
     public void setController(final FavCommanderController controller) {
         this.controller = controller;
+    }
+
+    public void setTopPanel(JLabel topPanel) {
+        this.topPanel = topPanel;
     }
 
     public void viewRepaint() {
@@ -62,6 +69,10 @@ public class FavCommanderTableModel {
     }
 
     public void setCurrentDirectory(final FavCommanderFile currentDirectory) {
+        if (currentDirectory instanceof AbstractFavCommanderLocalFile) {
+            topPanel.setText(((AbstractFavCommanderLocalFile) currentDirectory).getFile().getPath());
+        }
+
         this.currentDirectory = currentDirectory;
         fileList = currentDirectory.getDirectoryFileList();
         fileList.sort(FavCommanderFileComparator.NAME);

@@ -17,6 +17,7 @@ public class FavCommanderPanel extends JPanel {
 
         topPanel = new JLabel("fav top");
         add(topPanel, BorderLayout.PAGE_START);
+        getModel().setTopPanel(topPanel);
 
         scrollBar = new JScrollBar();
         add(scrollBar, BorderLayout.LINE_END);
