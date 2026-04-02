@@ -82,6 +82,10 @@ public class FavCommanderTableModel {
 
         cursorIndex--;
 
+        checkCursorStart();
+    }
+
+    public void checkCursorStart() {
         if (cursorIndex < cursorOffset) {
             cursorOffset = cursorIndex;
         }
@@ -146,7 +150,7 @@ public class FavCommanderTableModel {
             cursorIndex = 0;
         }
 
-        viewRepaint();
+        checkCursorStart();
     }
 
     public void cursorPageDown() {
@@ -161,7 +165,7 @@ public class FavCommanderTableModel {
             cursorIndex = fileList.size() - 1;
         }
 
-        viewRepaint();
+        checkCursorEnd();
     }
 
     public void setCursorIndex(final int index) {
