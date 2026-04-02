@@ -115,6 +115,8 @@ public class FavCommanderTableModel {
         }
 
         cursorIndex = 0;
+        cursorOffset = 0;
+
         viewRepaint();
     }
 
