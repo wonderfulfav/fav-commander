@@ -5,7 +5,10 @@ import wf.fav.apps.fc.config.FavCommanderVisualConfigurationLightTheme;
 import wf.fav.apps.fc.config.FavCommanderVisualConfigurationTheme;
 import wf.fav.apps.fc.gui.table.FavCommanderTableModel;
 
+import javax.swing.JOptionPane;
+
 import static java.awt.event.KeyEvent.*;
+import static javax.swing.JOptionPane.QUESTION_MESSAGE;
 
 public class FavCommanderController {
 
@@ -17,6 +20,8 @@ public class FavCommanderController {
 
     private final FavCommanderVisualConfigurationLightTheme lightTheme;
 
+    private final FavCommanderMainWindow mainWindow;
+
     private FavCommanderTableModel activePanelModel;
 
     private FavCommanderVisualConfigurationTheme activeTheme;
@@ -25,7 +30,8 @@ public class FavCommanderController {
             final FavCommanderTableModel leftPanelModel,
             final FavCommanderTableModel rightPanelModel,
             final FavCommanderVisualConfigurationDarkTheme darkTheme,
-            final FavCommanderVisualConfigurationLightTheme lightTheme) {
+            final FavCommanderVisualConfigurationLightTheme lightTheme,
+            final FavCommanderMainWindow mainWindow) {
         this.leftPanelModel = leftPanelModel;
         this.rightPanelModel = rightPanelModel;
         activePanelModel = leftPanelModel;
@@ -39,6 +45,7 @@ public class FavCommanderController {
         activeTheme = darkTheme;
         leftPanelModel.setTheme(activeTheme);
         rightPanelModel.setTheme(activeTheme);
+        this.mainWindow = mainWindow;
     }
 
     public void keyPressedAction(final int keyCode) {
@@ -65,15 +72,43 @@ public class FavCommanderController {
 
             case VK_TAB -> switchPanels();
 
+            case VK_F6 -> moveFilesOrDirectories();
+
+            case VK_F7 -> createDirectory();
+
             case VK_T -> switchTheme();
 
             default -> System.out.println(keyCode);
         }
     }
 
+    private void createDirectory() {
+        final String directoryName = JOptionPane.showInputDialog(mainWindow,
+                "Directory name:", "Create directory", QUESTION_MESSAGE);
+
+        if (directoryName == null) {
+            return;
+        }
+
+        System.out.println(directoryName);
+    }
+
+    private void moveFilesOrDirectories() {
+        final FavCommanderTableModel inactivePanel = getInactivePanel();
+        final int option = JOptionPane.showConfirmDialog(mainWindow,
+                "Do you want to move?", "Move",
+                JOptionPane.YES_NO_OPTION, QUESTION_MESSAGE);
+        System.out.println(option);
+        System.out.println(inactivePanel);
+    }
+
+    private FavCommanderTableModel getInactivePanel() {
+        return (activePanelModel == leftPanelModel) ? rightPanelModel : leftPanelModel;
+    }
+
     public void switchPanels() {
         activePanelModel.setActive(false);
-        activePanelModel = (activePanelModel == leftPanelModel) ? rightPanelModel : leftPanelModel;
+        activePanelModel = getInactivePanel();
         activePanelModel.setActive(true);
         leftPanelModel.viewRepaint();
         rightPanelModel.viewRepaint();

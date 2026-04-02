@@ -40,7 +40,7 @@ public class FavCommanderMainWindow extends JFrame {
         final FavCommanderVisualConfigurationLightTheme lightTheme = new FavCommanderVisualConfigurationLightTheme();
 
         final FavCommanderController controller =
-                new FavCommanderController(leftPanelModel, rightPanelModel, darkTheme, lightTheme);
+                new FavCommanderController(leftPanelModel, rightPanelModel, darkTheme, lightTheme, this);
 
         leftPanel.getTopPanel().setBackground(darkTheme.getBackgroundColor());
         leftPanel.getScrollBar().setBackground(darkTheme.getBackgroundColor());
