@@ -3,9 +3,14 @@ package wf.fav.apps.fc.gui;
 import wf.fav.apps.fc.config.FavCommanderVisualConfigurationDarkTheme;
 import wf.fav.apps.fc.config.FavCommanderVisualConfigurationLightTheme;
 import wf.fav.apps.fc.config.FavCommanderVisualConfigurationTheme;
+import wf.fav.apps.fc.fs.FavCommanderFile;
+import wf.fav.apps.fc.fs.local.AbstractFavCommanderLocalFile;
 import wf.fav.apps.fc.gui.table.FavCommanderTableModel;
 
 import javax.swing.JOptionPane;
+
+import java.io.File;
+import java.io.IOException;
 
 import static java.awt.event.KeyEvent.*;
 import static javax.swing.JOptionPane.QUESTION_MESSAGE;
@@ -72,6 +77,12 @@ public class FavCommanderController {
 
             case VK_TAB -> switchPanels();
 
+            case VK_F2 -> renameFile();
+
+            case VK_F3 -> viewFile();
+
+            case VK_F4 -> editFile();
+
             case VK_F6 -> moveFilesOrDirectories();
 
             case VK_F7 -> createDirectory();
@@ -79,6 +90,33 @@ public class FavCommanderController {
             case VK_T -> switchTheme();
 
             default -> System.out.println(keyCode);
+        }
+    }
+
+    private void renameFile() {
+        ;
+    }
+
+    private void viewFile() {
+        ;
+    }
+
+    private void editFile() {
+        if (activePanelModel.isFileListEmpty()) {
+            return;
+        }
+
+        final FavCommanderFile file = activePanelModel.getFile(activePanelModel.getCursorIndex());
+
+        if (file.isDirectory() || !(file instanceof AbstractFavCommanderLocalFile)) {
+            return;
+        }
+
+        try {
+            final File localFile = ((AbstractFavCommanderLocalFile) file).getFile();
+            Runtime.getRuntime().exec(new String[] { "notepad", localFile.getAbsolutePath() });
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
