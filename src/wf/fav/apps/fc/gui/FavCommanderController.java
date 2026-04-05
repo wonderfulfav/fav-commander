@@ -83,9 +83,13 @@ public class FavCommanderController {
 
             case VK_F4 -> editFile();
 
+            case VK_F5 -> copyFilesOrDirectories();
+
             case VK_F6 -> moveFilesOrDirectories();
 
             case VK_F7 -> createDirectory();
+
+            case VK_F8, VK_DELETE -> deleteFilesOrDirectories();
 
             case VK_T -> switchTheme();
 
@@ -94,11 +98,29 @@ public class FavCommanderController {
     }
 
     private void renameFile() {
-        ;
+        if (activePanelModel.isFileListEmpty()) {
+            return;
+        }
+
+        final FavCommanderFile file = activePanelModel.getFile(activePanelModel.getCursorIndex());
+
+        if (!(file instanceof AbstractFavCommanderLocalFile)) {
+            return;
+        }
+
+        final String newName = (String) JOptionPane.showInputDialog(mainWindow,
+                "New name:", "Rename file", QUESTION_MESSAGE,
+                null, null, file.getName());
+
+        if (newName == null) {
+            return;
+        }
+
+        System.out.println(newName);
     }
 
     private void viewFile() {
-        ;
+        editFile();
     }
 
     private void editFile() {
@@ -120,6 +142,10 @@ public class FavCommanderController {
         }
     }
 
+    private void copyFilesOrDirectories() {
+        ;
+    }
+
     private void createDirectory() {
         final String directoryName = JOptionPane.showInputDialog(mainWindow,
                 "Directory name:", "Create directory", QUESTION_MESSAGE);
@@ -129,6 +155,10 @@ public class FavCommanderController {
         }
 
         System.out.println(directoryName);
+    }
+
+    private void deleteFilesOrDirectories() {
+        ;
     }
 
     private void moveFilesOrDirectories() {
