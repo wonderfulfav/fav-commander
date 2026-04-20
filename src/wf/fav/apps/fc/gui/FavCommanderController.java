@@ -14,6 +14,7 @@ import java.io.IOException;
 
 import static java.awt.event.KeyEvent.*;
 import static javax.swing.JOptionPane.QUESTION_MESSAGE;
+import static wf.fav.apps.fc.i18n.FavCommanderI18n.MESSAGE_BUNDLE;
 
 public class FavCommanderController {
 
@@ -109,7 +110,9 @@ public class FavCommanderController {
         }
 
         final String newName = (String) JOptionPane.showInputDialog(mainWindow,
-                "New name:", "Rename file", QUESTION_MESSAGE,
+                MESSAGE_BUNDLE.getString("renameFileText"),
+                MESSAGE_BUNDLE.getString("renameFileTitle"),
+                QUESTION_MESSAGE,
                 null, null, file.getName());
 
         if (newName == null) {
@@ -148,7 +151,9 @@ public class FavCommanderController {
 
     private void createDirectory() {
         final String directoryName = JOptionPane.showInputDialog(mainWindow,
-                "Directory name:", "Create directory", QUESTION_MESSAGE);
+                MESSAGE_BUNDLE.getString("createDirectoryText"),
+                MESSAGE_BUNDLE.getString("createDirectoryTitle"),
+                QUESTION_MESSAGE);
 
         if (directoryName == null) {
             return;
@@ -164,7 +169,8 @@ public class FavCommanderController {
     private void moveFilesOrDirectories() {
         final FavCommanderTableModel inactivePanel = getInactivePanel();
         final int option = JOptionPane.showConfirmDialog(mainWindow,
-                "Do you want to move?", "Move",
+                MESSAGE_BUNDLE.getString("moveText"),
+                MESSAGE_BUNDLE.getString("moveTitle"),
                 JOptionPane.YES_NO_OPTION, QUESTION_MESSAGE);
         System.out.println(option);
         System.out.println(inactivePanel);
