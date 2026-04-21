@@ -8,13 +8,11 @@ import wf.fav.apps.fc.fs.local.AbstractFavCommanderLocalFile;
 import wf.fav.apps.fc.gui.FavCommanderMainWindow;
 import wf.fav.apps.fc.gui.table.FavCommanderTableModel;
 
-import javax.swing.JOptionPane;
-
 import java.io.File;
 import java.io.IOException;
 
 import static java.awt.event.KeyEvent.*;
-import static javax.swing.JOptionPane.QUESTION_MESSAGE;
+import static javax.swing.JOptionPane.*;
 import static wf.fav.apps.fc.i18n.FavCommanderI18n.getText;
 
 public class FavCommanderController {
@@ -110,7 +108,7 @@ public class FavCommanderController {
             return;
         }
 
-        final String newName = (String) JOptionPane.showInputDialog(mainWindow,
+        final String newName = (String) showInputDialog(mainWindow,
                 getText("renameFileText"), getText("renameFileTitle"), QUESTION_MESSAGE,
                 null, null, file.getName());
 
@@ -145,11 +143,13 @@ public class FavCommanderController {
     }
 
     private void copyFilesOrDirectories() {
-        ;
+        final int option = showConfirmDialog(mainWindow,
+                getText("copyText"), getText("copyTitle"), YES_NO_OPTION, QUESTION_MESSAGE);
+        System.out.println(option);
     }
 
     private void createDirectory() {
-        final String directoryName = JOptionPane.showInputDialog(mainWindow,
+        final String directoryName = showInputDialog(mainWindow,
                 getText("createDirectoryText"), getText("createDirectoryTitle"), QUESTION_MESSAGE);
 
         if (directoryName == null) {
@@ -160,13 +160,15 @@ public class FavCommanderController {
     }
 
     private void deleteFilesOrDirectories() {
-        ;
+        final int option = showConfirmDialog(mainWindow,
+                getText("deleteText"), getText("deleteTitle"), YES_NO_OPTION, QUESTION_MESSAGE);
+        System.out.println(option);
     }
 
     private void moveFilesOrDirectories() {
         final FavCommanderTableModel inactivePanel = getInactivePanel();
-        final int option = JOptionPane.showConfirmDialog(mainWindow,
-                getText("moveText"), getText("moveTitle"), JOptionPane.YES_NO_OPTION, QUESTION_MESSAGE);
+        final int option = showConfirmDialog(mainWindow,
+                getText("moveText"), getText("moveTitle"), YES_NO_OPTION, QUESTION_MESSAGE);
         System.out.println(option);
         System.out.println(inactivePanel);
     }
