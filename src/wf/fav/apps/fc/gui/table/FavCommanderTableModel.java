@@ -4,7 +4,7 @@ import wf.fav.apps.fc.config.FavCommanderVisualConfigurationTheme;
 import wf.fav.apps.fc.fs.FavCommanderFile;
 import wf.fav.apps.fc.fs.local.AbstractFavCommanderLocalFile;
 import wf.fav.apps.fc.fs.zip.FavCommanderZipFileSystem;
-import wf.fav.apps.fc.gui.FavCommanderController;
+import wf.fav.apps.fc.controls.FavCommanderController;
 import wf.fav.apps.fc.sort.FavCommanderFileComparator;
 
 import javax.swing.JLabel;

@@ -2,6 +2,7 @@ package wf.fav.apps.fc.gui;
 
 import wf.fav.apps.fc.config.FavCommanderVisualConfigurationDarkTheme;
 import wf.fav.apps.fc.config.FavCommanderVisualConfigurationLightTheme;
+import wf.fav.apps.fc.controls.FavCommanderController;
 import wf.fav.apps.fc.gui.table.FavCommanderPanel;
 import wf.fav.apps.fc.gui.table.FavCommanderTableModel;
 

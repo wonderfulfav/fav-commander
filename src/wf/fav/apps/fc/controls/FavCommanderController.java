@@ -1,10 +1,11 @@
-package wf.fav.apps.fc.gui;
+package wf.fav.apps.fc.controls;
 
 import wf.fav.apps.fc.config.FavCommanderVisualConfigurationDarkTheme;
 import wf.fav.apps.fc.config.FavCommanderVisualConfigurationLightTheme;
 import wf.fav.apps.fc.config.FavCommanderVisualConfigurationTheme;
 import wf.fav.apps.fc.fs.FavCommanderFile;
 import wf.fav.apps.fc.fs.local.AbstractFavCommanderLocalFile;
+import wf.fav.apps.fc.gui.FavCommanderMainWindow;
 import wf.fav.apps.fc.gui.table.FavCommanderTableModel;
 
 import javax.swing.JOptionPane;
