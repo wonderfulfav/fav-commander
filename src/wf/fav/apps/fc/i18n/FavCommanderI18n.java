@@ -5,6 +5,10 @@ import java.util.ResourceBundle;
 
 public class FavCommanderI18n {
 
-    public static final ResourceBundle MESSAGE_BUNDLE = ResourceBundle.getBundle("MessageBundle", Locale.US);
+    private static final ResourceBundle MESSAGE_BUNDLE = ResourceBundle.getBundle("MessageBundle", Locale.US);
+
+    public static String getText(final String message) {
+        return MESSAGE_BUNDLE.getString(message);
+    }
 
 }
